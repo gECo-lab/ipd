@@ -9,7 +9,7 @@ app_dir=$(pwd)
 
 cd "$kernel"
 
-python3 ecosimp.py "$app_dir" config.json "$model" "$scenarios"
+python3 ecosimp.py "$app_dir" "$model" "$scenarios"
 
 cd "$app_dir"
 
