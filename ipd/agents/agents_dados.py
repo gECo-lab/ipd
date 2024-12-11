@@ -31,7 +31,7 @@ strategies_data = {
     },
     "tft^-1": {
         "first_move": "D",
-        "response": {"C": "D", "D": "C"  }
+        "response": {"C": "D", "D": "C"  },
         "memory": {},
         "up_memory": {},
     },
@@ -39,10 +39,9 @@ strategies_data = {
         "first_move": "C",
         "response": {"C": "C", "D": "D"  },
         "memory": {},
-        "up_memory" {}
-        "status_angry": False
+        "up_memory": {},
+        "status_angry": "False"
         }
-    "" 
 }
 
 def agente(strategy_data, hist_op):
