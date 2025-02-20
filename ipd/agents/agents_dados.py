@@ -31,16 +31,16 @@ strategies_data = {
     },
     "tft^-1": {
         "first_move": "D",
-        "response": {"C": "D", "D": "C"  },
+        "response": {"C": "D", "D": "C"},
         "memory": {},
         "up_memory": {},
     },
     "grim": {
         "first_move": "C",
-        "response": {"C": "C", "D": "D"  },
+        "response": {"C": "C", "D": "D"},
         "memory": {},
         "up_memory": {},
-        "status_angry": "False"
+        "status_angry": False
         }
 }
 
