@@ -37,7 +37,7 @@ strategies_data = {
     },
     "grim": {
         "first_move": "C",
-        "response": {"C": "C", "D": "D"  },
+        "response": {"C": "C", "D": "D"},
         "memory": {},
         "up_memory": {},
         "status_angry": False
