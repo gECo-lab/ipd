@@ -201,25 +201,3 @@ class Generic(Strategy):
         super().__init__()
         self.strategy_name = "always_defect"
         self.strategy = "D"
-
-
-class Memory():
-    """ Implements the agent memory 
-        Memory have agents in the space and
-        the games that this agent played
-    """
-
-    def __init__(self):
-        self.games = {}
-
-
-    def update_memory(self, a_game):
-        """" Updates agent memory"""
-
-        if isinstance(a_game, Game):
-            if a_game.other_name in self.games:
-                self.games[a_game.other_name].append(a_game)
-            else:
-                self.games[a_game.other_name] = [a_game]
-        else:
-            raise ValueError("a_game must be an instance of the Game class")
