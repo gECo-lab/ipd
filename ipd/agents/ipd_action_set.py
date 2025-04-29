@@ -199,8 +199,8 @@ class Generic(Strategy):
     """ Never Cooperate Strategy """
     def __init__(self):
         super().__init__()
-        self.strategy_name = "always_defect"
-        self.strategy = "D"
+        self.actions = {}
+        self.strategies = "D"
 
 
 class Memory():
