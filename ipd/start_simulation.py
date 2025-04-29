@@ -12,8 +12,7 @@ def main():
         with open(activate_script) as f:
             exec(f.read(), {'__file__': activate_script})
 
-
-    # Read directories and filenames from config.json
+        # Read kernel_dir from config.json
     with open("config.json") as config_file:
         config = json.load(config_file)
         kernel_dir = config["paths"]["kernel"]
@@ -23,8 +22,6 @@ def main():
         model_file = config["files"]["model"]
         scenarios_file = config["files"]["scenarios"]
         analisys_file = config["files"]["analisys"]
-        results_file = config["files"]["results"]
-
 
 
 
@@ -37,7 +34,7 @@ def main():
     # Get current directory as app_dir
     app_dir = os.getcwd()
 
-   
+
     # Change directory to kernel_dir and run ecosimp.py
     os.chdir(kernel_dir)
     subprocess.run(["python3", "ecosimp.py", app_dir, model_file, scenarios_file], check=True)
@@ -58,9 +55,9 @@ def main():
     subprocess.run(["Rscript", "-e", r_command], check=True)
 
     # Open the resulting HTML file in the default web browser
-    results_path = os.path.join(app_dir, results_dir, results_file)
+    results_file = os.path.join(app_dir, results_dir, "ipd.html")
     if os.path.exists(results_file):
-        webbrowser.open(f"file://{results_path}")
+        webbrowser.open(f"file://{results_file}")
     else:
         print("Error: Results file not found.")
 

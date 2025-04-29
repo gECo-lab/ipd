@@ -31,8 +31,7 @@
     "RancorousPlayer",
     "RancorousWithRecallPlayer",
     "HardTitForTatPlayer"
-  ]
-  ,
+  ],
   "agents": [
     {
       "agent_type": "GoodPlayer",
