@@ -2,11 +2,18 @@
   "Description": "Configuration file for the ipd model",
   "paths":
     {
-      "kernel": "/home/rivero/Dropbox/Workspace_Current/Projects/Apps/EcoSim/EcoSim_p/main/EcoSim_p/kernel/",
+      "kernel": "/home/rivero/Dropbox/Workspace_Current/Projects/Apps/EcoSim/EcoSim_p/main/EcoSim_p/",
       "app": "/home/rivero/Dropbox/Workspace_Current/Projects/Apps/EcoSim/EcoSim_p/apps/ipd/ipd/",
       "models": "/home/rivero/Dropbox/Workspace_Current/Projects/Apps/EcoSim/EcoSim_p/apps/ipd/ipd/models/",
       "scenarios": "/home/rivero/Dropbox/Workspace_Current/Projects/Apps/EcoSim/EcoSim_p/apps/ipd/ipd/scenarios/",
       "runs": "/home/rivero/Dropbox/Workspace_Current/Projects/Apps/EcoSim/EcoSim_p/apps/ipd/ipd/runs/",
-      "results": "/home/rivero/Dropbox/Workspace_Current/Projects/Apps/EcoSim/EcoSim_p/apps/ipd/ipd/results/"
+      "results": "/home/rivero/Dropbox/Workspace_Current/Projects/Apps/EcoSim/EcoSim_p/apps/ipd/ipd/results/",
+      "analisys": "/home/rivero/Dropbox/Workspace_Current/Projects/Apps/EcoSim/EcoSim_p/apps/ipd/ipd/analisys/"
+    },
+  "files":
+    {
+      "model": "model_test_02.json",
+      "scenarios": "scenarios_test_02.json",
+      "analisys": "ipd.rmd"      
     }
 }

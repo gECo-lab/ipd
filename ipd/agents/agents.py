@@ -105,6 +105,11 @@ class RancorousWithRecallPlayer(Player):
         super().__init__(simulation, model, agent_number, agent_def)
         self.strategy = Rancorous()
 
+class HardTitForTatPlayer(Player):
+    """ Rancorous player - Impl: Lucas 2023-10-25 """
+    def __init__(self, simulation, model, agent_number, agent_def):
+        super().__init__(simulation, model, agent_number, agent_def)
+        self.strategy = HardTitForTat()
 
 class GenericStrategyPlayer(Player):
     """Implemnts a player with memory and generic strategies"""
