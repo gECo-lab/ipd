@@ -104,6 +104,35 @@ class GenericStrategyPlayer(Player):
         self.strategy = Generic()
         self.memory = Memory()
 
+#Nathan
+class PeriodicPlayer(Player):
+    """ Periodic player C, D """
+    def __init__(self, simulation, model, agent_number, agent_def):
+        super().__init__(simulation, model, agent_number, agent_def)
+        self.strategy = PerCD()
 
+class HardTitForTatPlayer(Player):
+    """ Hard Tit for tat player """
+    def __init__(self, simulation, model, agent_number, agent_def):
+        super().__init__(simulation, model, agent_number, agent_def)
+        self.strategy = HardTifForTat()
 
+class SlowTitForTatPlayer(Player):
+    """Slow Tit for Tat Player"""
+    def __init__(self, simulation, model, agent_number, agent_def):
+        super().__init__(simulation, model, agent_number, agent_def)
+        self.strategy = SlowTifForTat()
+
+class TitFor2TatPlayer(Player):
+    """Tit For 2 Tat Player"""
+    def __init__(self, simulation, model, agent_number, agent_def):
+        super().__init__(simulation, model, agent_number, agent_def)
+        self.strategy = TitFor2Tat()
+
+class GradualPlayer(Player):
+    """Gradual Player"""
+    def __init__(self, simulation, model, agent_number, agent_def):
+        super().__init__(simulation, model, agent_number, agent_def)
+        self.strategy = Gradual()
+#FIM
 

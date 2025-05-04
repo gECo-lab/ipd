@@ -1,7 +1,8 @@
-#Estrategieas para o grupo nesse file implementar: per_cd, tf2t, hard_tft, slow_tft, gradual.
+##Estrategieas para o grupo Nathan implementar: per_cd, tf2t, hard_tft, slow_tft, gradual.
 
 
-#First
+#First PerCD
+"""Nathan"""
 class PerCD (Strategy):
    """ PerCD Strategy """
    def __init__(self):
@@ -24,7 +25,7 @@ class PerCD (Strategy):
 
 
 ##Second: HardTFT
-"""Irá para o arquivo ipd/ipd/agents/ipd_action_set.py :"""
+""" Nathan"""
 class HardTifForTat (Strategy):
    """ Hard Tif For Tat Strategy
   
@@ -373,3 +374,4 @@ class Gradual (Strategy):
            self.others[aGame.other_name] = []
        self.others[aGame.other_name].append(aGame.other_play)
 
+##FIM Estratégias grupo Nathan
