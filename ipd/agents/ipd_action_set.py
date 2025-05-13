@@ -216,13 +216,10 @@ class PerCD (Strategy):
 
    def select_game(self, other_player):
        """ PerCD strategy """
-       if self.selected_strategy == "C":
-           self.selected_strategy = "D"
-       else:
-           self.selected_strategy = "C"
-
-
+       self.selected_strategy = "D" if self.selected_strategy == "C" else "C"
+       
        return self.selected_strategy
+
 
 
 

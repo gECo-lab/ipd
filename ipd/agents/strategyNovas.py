@@ -4,7 +4,10 @@
 #First PerCD
 """Nathan"""
 class PerCD (Strategy):
-   """ PerCD Strategy """
+   """ PerCD Strategy 
+   
+   Periodic plays C e D
+   """
    def __init__(self):
        super().__init__()
        self.strategy_name = "PerCD"
