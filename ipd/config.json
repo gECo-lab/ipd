@@ -2,11 +2,19 @@
   "Description": "Configuration file for the ipd model",
   "paths":
     {
-      "kernel": "/home/nathan/home/UFCG/gEco/Projetos/EcoSim_p/kernel",
+      "kernel": "/home/nathan/home/UFCG/gEco/Projetos/EcoSim_p/",
       "app": "/home/nathan/home/UFCG/gEco/Projetos/IPD/ipd/ipd",
       "models": "/home/nathan/home/UFCG/gEco/Projetos/IPD/ipd/ipd/models/",
       "scenarios": "/home/nathan/home/UFCG/gEco/Projetos/IPD/ipd/ipd/scenarios/",
       "runs": "/home/nathan/home/UFCG/gEco/Projetos/IPD/ipd/ipd/runs/",
-      "results": "/home/nathan/home/UFCG/gEco/Projetos/IPD/ipd/ipd/results/"
+      "results": "/home/nathan/home/UFCG/gEco/Projetos/IPD/ipd/ipd/results/",
+      "analisys": "/home/nathan/home/UFCG/gEco/Projetos/IPD/ipd/ipd/analisys"
+    },
+     "files":
+    {
+      "model": "model_test_02.json",
+      "scenarios": "scenarios_test_02.json",
+      "analisys": "ipd.rmd",
+      "results": "ipd.html"      
     }
 }
