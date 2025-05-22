@@ -18,24 +18,56 @@ class Game:
         self.other_payoff = other_payoff
 
 
+#class Strategy:
+#    """ Implementation of the strategy class """
+#    def __init__(self):
+#        self.strategy_name = "general"
+#        self.strategy = "C"
+#        self.game = Game("", "C", 3, "", "C", 3)
+#        self.last_game = Game("", "C", 3, "", "C", 3)
+#
+#    def select_game(self, other_player):
+#        return self.strategy
+#
+#    def update_game(self, aGame):
+#       """ Get a game """
+#        self.last_game = copy.copy(self.game)
+#        self.game = aGame
+#
+#   def name(self):
+#       return self.strategy_name
+
 class Strategy:
-    """ Implementation of the strategy class """
+    """Base strategy class for Prisoner's Dilemma agents."""
+
     def __init__(self):
         self.strategy_name = "general"
         self.strategy = "C"
         self.game = Game("", "C", 3, "", "C", 3)
         self.last_game = Game("", "C", 3, "", "C", 3)
+        self.others = {}  # Dicionário para armazenar histórico de outros jogadores
 
     def select_game(self, other_player):
+        """Decide the play"""
         return self.strategy
 
     def update_game(self, aGame):
-        """ Get a game """
+        """Update the last play"""
         self.last_game = copy.copy(self.game)
         self.game = aGame
 
     def name(self):
+        """Return strategy name"""
         return self.strategy_name
+
+    def opponent_last_plays(self, other_player, n=2, default="C"):
+        """Retorna as últimas n jogadas do oponente, preenchidas com `default`,
+        n é o tamanho das jogadas anteriores que a estratégia precisa acessar
+        """
+        history = self.others.get(other_player.name, [])
+        standard_history = [default] * n + history
+        return standard_history[-n:] #Pega a lista correta de jogodas do oponente
+
 
 
 class AlwaysCooperate(Strategy):
@@ -45,6 +77,9 @@ class AlwaysCooperate(Strategy):
         self.strategy_name = "always_cooperate"
         self.strategy = "C"
 
+    def select_game(self, other_player):
+        return "C"
+
 
 class AlwaysDefect(Strategy):
     """ Never Cooperate Strategy """
@@ -53,6 +88,8 @@ class AlwaysDefect(Strategy):
         self.strategy_name = "always_defect"
         self.strategy = "D"
 
+    def select_game(self, other_player):
+        return "D"
 
 class RandomPlay(Strategy):
     """ Cooperate randomly """
@@ -241,32 +278,26 @@ class HardTifForTat (Strategy):
        self.strategy_name = "hard_tft"
        self.strategy = ["C", "D"]
        self.selected_strategy =  "C"
-      
-       self.game = Game("", "C", 3, "", "C", 3)
-       self.last_game = Game("", "C", 3, "", "C", 3)
-       self.second_last_game = Game("", "C", 3, "", "C", 3)
 
-       self.other_last_strategy = "C"
        self.others = {}
 
-   def update_game(self, aGame):
-       """ Get a game """
+#    def update_game(self, aGame):
+#        """ Get a game """
 
 
-       self.second_last_game = copy.copy(self.last_game)
-       self.last_game = copy.copy(self.game)
+#        self.second_last_game = copy.copy(self.last_game)
+#        self.last_game = copy.copy(self.game)
       
-       self.game = aGame
-       self.update_memory(aGame)
+#        self.game = aGame
+#        self.update_memory(aGame)
 
    def select_game(self, other_player):
        """ Hard tif fot tat strategy """
 
+       last_two = self.opponent_last_plays(other_player, n=2, default="C")
 
-       self.recall_games(other_player)
 
-
-       if self.last_game.other_play == "D" or self.second_last_game.other_play == "D":
+       if "D" in last_two:
            self.selected_strategy = "D"
        else:
            self.selected_strategy = "C"
@@ -274,20 +305,6 @@ class HardTifForTat (Strategy):
 
        return self.selected_strategy
   
-   def recall_games(self, other_player):
-       """ Recall last play from the opponent"""
-       history =  self.others.get(other_player.name, [])
-      
-       if len(history) >= 2:
-           self.second_last_game.other_play = history[-2]
-           self.last_game.other_play = history[-1]
-       elif len(history) == 1:
-           self.second_last_game.other_play = "C"
-           self.last_game.other_play = history[-1]
-       else:
-           self.second_last_game.other_play = "C"
-           self.last_game.other_play = "C"
-
    def update_memory(self, aGame):
        if aGame.other_name not in self.others:
            self.others[aGame.other_name] = []
@@ -311,46 +328,32 @@ class SlowTifForTat (Strategy):
        self.strategy = ["C", "D"]
        self.selected_strategy =  "C"
       
-       self.game = Game("", "C", 3, "", "C", 3)
-       self.last_game = Game("", "C", 3, "", "C", 3)
-       self.second_last_game = Game("", "C", 3, "", "C", 3)
-
-       self.other_last_strategy = "C"
        self.others = {}
 
-   def update_game(self, aGame):
-       """ Get a game """
-       self.second_last_game = copy.copy(self.last_game)
-       self.last_game = copy.copy(self.game)
+#    def update_game(self, aGame):
+#        """ Get a game """
+#        self.second_last_game = copy.copy(self.last_game)
+#        self.last_game = copy.copy(self.game)
       
-       self.game = aGame
-       self.update_memory(aGame)
+#        self.game = aGame
+#        self.update_memory(aGame)
 
    def select_game(self, other_player):
        """ Slow tif fot tat strategy """
-       self.recall_games(other_player)
+       
+       history = self.others.get(other_player.name, []) #Garante "C" em outros casos
 
-       if self.last_game.other_play == "D" and self.second_last_game.other_play == "D":
-           self.selected_strategy = "D"
-       elif self.last_game.other_play == "C" and self.second_last_game.other_play == "C": 
-           self.selected_strategy = "C"
+       if len(history) < 2:
+            self.selected_strategy = "C"
+       else:
+            last_two = self.opponent_last_plays(other_player, n=2, default="C")
+            if last_two == ["D", "D"]:
+                self.selected_strategy = "D"
+            elif last_two == ["C", "C"]:
+                self.selected_strategy = "C"
 
        return self.selected_strategy
   
-   def recall_games(self, other_player):
-       """ Recall last two plays from the opponent"""
-       history =  self.others.get(other_player.name, [])
-      
-       if len(history) >= 2:
-           self.second_last_game.other_play = history[-2]
-           self.last_game.other_play = history[-1]
-       elif len(history) == 1:
-           self.second_last_game.other_play = "C"
-           self.last_game.other_play = history[-1]
-       else:
-           self.second_last_game.other_play = "C"
-           self.last_game.other_play = "C"
-
    def update_memory(self, aGame):
        if aGame.other_name not in self.others:
            self.others[aGame.other_name] = []
@@ -359,7 +362,7 @@ class SlowTifForTat (Strategy):
 
 
 ##Fourth: TF2t
-"""Irá para o arquivo ipd/ipd/agents/ipd_action_set.py :"""
+
 class TitFor2Tat (Strategy):
    """
    Tit For 2 Tat Strategy
@@ -373,45 +376,19 @@ class TitFor2Tat (Strategy):
        self.strategy = ["C", "D"]
        self.selected_strategy = "C"
 
-       self.game = Game("", "C", 3, "", "C", 3)
-       self.last_game = Game("", "C", 3, "", "C", 3)
-       self.second_last_game = Game("", "C", 3, "", "C", 3)
-
-       self.other_last_strategy = "C"
        self.others = {}
 
-   def update_game(self, aGame):
-       """Get a game"""
-       self.second_last_game = copy.copy(self.last_game)
-       self.last_game = copy.copy(self.game)
-      
-       self.game = aGame
-       self.update_memory(aGame)
 
    def select_game(self, other_player):
        """Tif for 2 Tat Strategy"""
-       self.recall_games(other_player)
+       last_two = self.opponent_last_plays(other_player, n=2, default="C")
 
-       if self.last_game.other_play == "D" and self.second_last_game.other_play == "D":
+       if last_two == ["D", "D"]:
            self.selected_strategy = "D"
        else:
            self.selected_strategy = "C"
 
        return self.selected_strategy
-
-   def recall_games(self, other_player):
-       """Recalls the last two plays from the opponent"""
-       history = self.others.get(other_player.name, [])
-
-       if len(history) >= 2:
-           self.second_last_game.other_play = history[-2]
-           self.last_game.other_play = history[-1]
-       elif len(history) == 1:
-           self.second_last_game.other_play = "C"
-           self.last_game.other_play = history[-1]
-       else:
-           self.second_last_game.other_play = "C"
-           self.last_game.other_play = "C"
 
    def update_memory(self, aGame):
        """Stores opponent's play history"""
@@ -422,7 +399,7 @@ class TitFor2Tat (Strategy):
 
 
 ## Fifth: Gradual
-"""Irá para o arquivo ipd/ipd/agents/ipd_action_set.py :"""
+
 class Gradual (Strategy):
    """
    Gradual Strategy
@@ -511,3 +488,5 @@ class Gradual (Strategy):
 
 
 ##FIM Estratégias grupo Nathan
+
+#Estrategias de Determinat-Zero
