@@ -514,3 +514,31 @@ class Gradual (Strategy):
 
 
 ##FIM Estratégias grupo Nathan
+
+
+#### Estrategias  Ariana
+#Pavlov
+#Começa cooperando e só retalia se o outro jogador jogar D,e depois volta a cooperar
+
+class Pavlov (Strategy):
+    """Pavlov strategy"""
+    def __init__(self):
+        super().__init__()
+        self.strategy_name = "Pavlov"
+        self.strategy = ["C", "D"]
+        self.selected_strategy = "C"
+        self.last_other_play=None #Deixa em aberto qual a primeira rodada do J2
+        self.is_retaliating = False #True o jogador retalia na próxima rodada
+
+    def update_game(self, aGame): #atualiza a ultima rodada do oponente
+        self.last_other_play=aGame.Other_play
+        if not self.is_retaliating and aGame.other_play=="D":
+            self.is_retaliating = True
+
+    def select_game(self):
+        if self.is_retaliating:
+            self.selected_strategy = "D"
+            self.is_retaliating = False
+        else:
+            self.selected_strategy = "C"
+        return self.selected_strategy

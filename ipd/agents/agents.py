@@ -141,3 +141,11 @@ class GenericStrategyPlayer(Player):
 
 
 
+#### Agentes Ariana
+
+
+class PavlovPlayer(Player):
+    """Pavlov Player"""
+    def __init__(self, simulation, model, agent_number, agent_def):
+        super().__init__(simulation, model, agent_number, agent_def)
+        self.strategy = Pavlov()
