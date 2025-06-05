@@ -149,3 +149,11 @@ class PavlovPlayer(Player):
     def __init__(self, simulation, model, agent_number, agent_def):
         super().__init__(simulation, model, agent_number, agent_def)
         self.strategy = Pavlov()
+
+
+
+class Prober(Player):
+    """Prober Player"""
+    def __init__(self, simulation, model, agent_number, agent_def):
+        super().__init__(simulation, model, agent_number, agent_def)
+        self.strategy = Prober()

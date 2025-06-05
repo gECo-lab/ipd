@@ -542,3 +542,33 @@ class Pavlov (Strategy):
         else:
             self.selected_strategy = "C"
         return self.selected_strategy
+
+
+
+#Prober
+
+class Prober(Strategy):
+    def __init__(self):
+        super().__init__()
+        self.strategy_name = "Prober"
+        self.strategy = ["C", "D"]
+        self.selected_strategy = "D"
+        self.other_play = []
+        self.current_round = 0 
+        self.back_strategy = TitforTat()
+
+    def update_game(self, aGame):
+        self.other_play.append(aGame.other_play)
+        self.current_round += 1
+    
+    def select_game(self):
+        if self.current_round == 0:
+            self.strategy = "D"
+        elif self.current_round == 1 and self.current_round == 2:
+            self.strategy = "C"
+        else: 
+            if self.other_play[1] == "C" and self.other_play[2] == "C":
+                self.strategy = "D"
+            else:
+                return self.back_strategy.select_game()
+
