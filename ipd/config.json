@@ -3,12 +3,12 @@
   "paths":
     {
       "kernel": "C:\\Users\\Nathan\\gEco\\EcoSim_p\\",
-      "app": "C:\\Users\\Nathan\\gEco\\IPD\\ipd\\ipd",
-      "models": "C:\\Users\\Nathan\\gEco/IPD\\ipd\\ipd\\models/",
-      "scenarios": "C:\\Users\\Nathan\\gEco\\IPD\\ipd\\ipd\\scenarios\\",
-      "runs": "C:\\Users\\Nathan\\gEco\\IPD\\ipd\\ipd\\runs\\",
-      "results": "C:\\Users\\Nathan\\gEco\\IPD\\ipd\\ipd\\results",
-      "analisys": "C:\\Users\\Nathan\\gEco\\IPD\\ipd\\ipd\\analisys"
+      "app": "C:\\Users\\Nathan\\gEco\\ipd\\ipd\\",
+      "models": "C:\\Users\\Nathan\\gEco\\ipd\\ipd\\models\\",
+      "scenarios": "C:\\Users\\Nathan\\gEco\\ipd\\ipd\\scenarios\\",
+      "runs": "C:\\Users\\Nathan\\gEco\\ipd\\ipd\\runs\\",
+      "results": "C:\\Users\\Nathan\\gEco\\ipd\\ipd\\results\\",
+      "analisys": "C:\\Users\\Nathan\\gEco\\ipd\\ipd\\analisys\\"
     },
      "files":
     {
