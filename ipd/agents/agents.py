@@ -2,7 +2,7 @@
 """ Agents for the iterated prisioners dilemma model """
 
 from kernel.agent.basicAgents import DiscreteEventAgent
-from .ipd_action_set import *
+from .ipd_action_set2 import *
 
 
 class Player(DiscreteEventAgent):
@@ -115,13 +115,13 @@ class HardTitForTatPlayer(Player):
     """ Hard Tit for tat player """
     def __init__(self, simulation, model, agent_number, agent_def):
         super().__init__(simulation, model, agent_number, agent_def)
-        self.strategy = HardTifForTat()
+        self.strategy = HardTitForTat()
 
 class SlowTitForTatPlayer(Player):
     """Slow Tit for Tat Player"""
     def __init__(self, simulation, model, agent_number, agent_def):
         super().__init__(simulation, model, agent_number, agent_def)
-        self.strategy = SlowTifForTat()
+        self.strategy = SlowTitForTat()
 
 class TitFor2TatPlayer(Player):
     """Tit For 2 Tat Player"""
