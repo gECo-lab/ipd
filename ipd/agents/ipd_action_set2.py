@@ -498,36 +498,42 @@ class Gradual (Strategy):
 
 ##FIM Estratégias grupo Nathan
 
-#Estrategias de Determinat-Zero
+## Grupo Ariana
 
-class Pavlov (Strategy):
-    """Pavlov strategy"""
+class Pavlov(Strategy):
+    """ Pavlov (Win-Stay, Lose-Shift) strategy
+        Cooperates on the first move.
+        If both players made the same move (CC or DD), repeats the same move.
+        If the moves were different (CD or DC), switches.
+        (Wedekind & Milinski 1996)
+    """
     def __init__(self):
         super().__init__()
         self.strategy_name = "Pavlov"
-        self.strategy = ["C", "D"]
         self.selected_strategy = "C"
-        self.last_other_play=None #Deixa em aberto qual a primeira rodada do J2
-        self.is_retaliating = False #True o jogador retalia na próxima rodada
+        self.last_game = None
 
-    def update_game(self, aGame): #atualiza a ultima rodada do oponente
-        self.last_other_play=aGame.other_play
-        if not self.is_retaliating and aGame.other_play=="D":
-            self.is_retaliating = True
+    def update_game(self, aGame):
+        self.last_game = aGame
 
     def select_game(self, other_player):
-        if self.is_retaliating:
-            self.selected_strategy = "D"
-            self.is_retaliating = False
+        if self.last_game is None:
+            self.selected_strategy = "C"  # First move
         else:
-            self.selected_strategy = "C"
+            my_last = self.last_game.my_play
+            other_last = self.last_game.other_play
+
+            if my_last == other_last:
+                # Agreement (CC or DD) → stay
+                self.selected_strategy = my_last
+            else:
+                # Disagreement (CD or DC) → shift
+                self.selected_strategy = "D" if my_last == "C" else "C"
 
         return self.selected_strategy
-
-
+    
 
 #Prober
-
 class Prober(Strategy):
     """plays the sequence d,c,c, then always defects if its opponent has cooperated in the moves 2 and 3.
     Plays as tit_for_tat in other cases (Mathieu et al. 1999)
@@ -535,8 +541,7 @@ class Prober(Strategy):
     def __init__(self):
         super().__init__()
         self.strategy_name = "Prober"
-        self.strategy = ["C", "D"]
-        self.selected_strategy = "D"
+        self.strategy = "D"
         self.other_play = []
         self.current_round = 0 
         self.back_strategy = TitForTat()
@@ -560,3 +565,6 @@ class Prober(Strategy):
                 return self.back_strategy.select_game(other_player)
         
         return self.strategy
+    
+
+##Estratégias de Determinant Zero:
