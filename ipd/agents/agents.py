@@ -136,3 +136,14 @@ class GradualPlayer(Player):
         self.strategy = Gradual()
 #FIM
 
+class PavlovPlayer(Player):
+    """Pavlov Player"""
+    def __init__(self, simulation, model, agent_number, agent_def):
+        super().__init__(simulation, model, agent_number, agent_def)
+        self.strategy = Pavlov()
+
+class ProberPlayer(Player):
+    """Prober Player"""
+    def __init__(self, simulation, model, agent_number, agent_def):
+        super().__init__(simulation, model, agent_number, agent_def)
+        self.strategy = Prober()

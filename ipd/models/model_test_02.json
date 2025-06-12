@@ -34,7 +34,9 @@
     "HardTitForTatPlayer",
     "SlowTitForTatPlayer", 
     "TitFor2TatPlayer",
-    "GradualPlayer"
+    "GradualPlayer",
+    "PavlovPlayer",
+    "ProberPlayer"
   ]
   ,
   "agents": [
@@ -140,6 +142,24 @@
         {
           "agent_type": "GradualPlayer",
           "agent_prefix": "Grad",
+          "agent_spaces": [
+            "IpdGame"
+          ],
+          "no_of_agents": 30,
+          "has_observer": true
+        },
+        {
+          "agent_type": "PavlovPlayer",
+          "agent_prefix": "Pavlov",
+          "agent_spaces": [
+            "IpdGame"
+          ],
+          "no_of_agents": 30,
+          "has_observer": true
+        },
+        {
+          "agent_type": "ProberPlayer",
+          "agent_prefix": "Prober",
           "agent_spaces": [
             "IpdGame"
           ],

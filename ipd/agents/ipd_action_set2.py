@@ -499,3 +499,64 @@ class Gradual (Strategy):
 ##FIM Estratégias grupo Nathan
 
 #Estrategias de Determinat-Zero
+
+class Pavlov (Strategy):
+    """Pavlov strategy"""
+    def __init__(self):
+        super().__init__()
+        self.strategy_name = "Pavlov"
+        self.strategy = ["C", "D"]
+        self.selected_strategy = "C"
+        self.last_other_play=None #Deixa em aberto qual a primeira rodada do J2
+        self.is_retaliating = False #True o jogador retalia na próxima rodada
+
+    def update_game(self, aGame): #atualiza a ultima rodada do oponente
+        self.last_other_play=aGame.other_play
+        if not self.is_retaliating and aGame.other_play=="D":
+            self.is_retaliating = True
+
+    def select_game(self, other_player):
+        if self.is_retaliating:
+            self.selected_strategy = "D"
+            self.is_retaliating = False
+        else:
+            self.selected_strategy = "C"
+
+        return self.selected_strategy
+
+
+
+#Prober
+
+class Prober(Strategy):
+    """plays the sequence d,c,c, then always defects if its opponent has cooperated in the moves 2 and 3.
+    Plays as tit_for_tat in other cases (Mathieu et al. 1999)
+"""
+    def __init__(self):
+        super().__init__()
+        self.strategy_name = "Prober"
+        self.strategy = ["C", "D"]
+        self.selected_strategy = "D"
+        self.other_play = []
+        self.current_round = 0 
+        self.back_strategy = TitForTat()
+
+    def update_game(self, aGame):
+        self.other_play.append(aGame.other_play)
+        self.current_round += 1
+    
+    def select_game(self, other_player):
+        if self.current_round == 0:
+            self.strategy = "D"
+
+        if self.current_round == 1 or self.current_round == 2:
+            self.strategy = "C"
+
+        if self.current_round == 3:
+            if self.other_play[1] == "C" and self.other_play[2] == "C":
+                self.strategy = "D"
+        
+            else:
+                return self.back_strategy.select_game(other_player)
+        
+        return self.strategy
