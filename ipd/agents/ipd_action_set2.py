@@ -813,5 +813,73 @@ class Mem(Strategy):
 
 class DeterminatZero (Strategy):
 
-    def __init__(self):
+   def __init__(self):
+      super().__init__()
+      self.strategy_name = "ZD"
+      self.strategy = ["C", "D"]
+      self.selected_strategy = "D"
+      self.others = {}
+
+class Proba(Strategy):
+    """
+    Proba strategy
+    --------------
+    A probabilistic strategy that adjusts its actions based on the previous actions of both players.
+
+    It uses four probabilities:
+      - p1: Prob of cooperating after (C, C)
+      - p2: Prob of cooperating after (C, D)
+      - p3: Prob of cooperating after (D, C)
+      - p4: Prob of cooperating after (D, D)
+
+    Attributes:
+    -----------
+    - first: Action on the first turn ('C' or 'D')
+    - my_prev, its_prev: store last moves for each opponent
+    - stats: dictionary with last moves by opponent
+    """
+    def __init__(self, first, p1, p2, p3, p4, name=None):
         super().__init__()
+        self.first = first
+        self.p1 = p1
+        self.p2 = p2
+        self.p3 = p3
+        self.p4 = p4
+        self.strategy_name = name if name else f"proba{first}_{p1:.1f}_{p2:.1f}_{p3:.1f}_{p4:.1f}"
+        self.stats = {}  # Guarda histórico de cada oponente
+
+    def update_game(self, aGame):
+        """Atualiza a memória da última jogada"""
+        self.second_last_game = copy.copy(self.last_game)
+        self.last_game = copy.copy(self.game)
+        self.game = aGame
+
+        name = aGame.other_name
+        if name not in self.stats:
+            self.stats[name] = {"my_prev": None, "its_prev": None}
+        self.stats[name]["its_prev"] = aGame.other_play
+        self.stats[name]["my_prev"] = aGame.my_play  # Jogada na rodada anterior
+
+    def select_game(self, other_player):
+        """Decide a próxima jogada"""
+        name = other_player.name
+
+        if name not in self.stats or self.stats[name]["my_prev"] is None:
+            return self.first  
+
+        my_prev = self.stats[name]["my_prev"]
+        its_prev = self.stats[name]["its_prev"]
+
+        rnd = np.random.uniform(0, 1)
+
+        if my_prev == "C" and its_prev == "C":
+            return "C" if rnd < self.p1 else "D"
+
+        if my_prev == "C" and its_prev == "D":
+            return "C" if rnd < self.p2 else "D"
+
+        if my_prev == "D" and its_prev == "C":
+            return "C" if rnd < self.p3 else "D"
+
+        # Caso (D, D)
+        return "C" if rnd < self.p4 else "D"
