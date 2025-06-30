@@ -147,3 +147,30 @@ class ProberPlayer(Player):
     def __init__(self, simulation, model, agent_number, agent_def):
         super().__init__(simulation, model, agent_number, agent_def)
         self.strategy = Prober()
+
+#Novas
+
+class MistrustPlayer(Player):
+    """Mistrust Player"""
+    def __init__(self, simulation, model, agent_number, agent_def):
+        super().__init__(simulation, model, agent_number, agent_def)
+        self.strategy = Mistrust()
+
+class SoftMajorityPlayer(Player):
+    """ SoftMajority Player"""
+    def __init__(self, simulation, model, agent_number, agent_def):
+        super().__init__(simulation, model, agent_number, agent_def)
+        self.strategy = SoftMajority()
+
+
+class HardMajorityPlayer(Player):
+    """ HardMajority Player"""
+    def __init__(self, simulation, model, agent_number, agent_def):
+        super().__init__(simulation, model, agent_number, agent_def)
+        self.strategy = HardMajority()
+
+class MemPlayer(Player):
+    """ Mem Player"""
+    def __init__(self, simulation, model, agent_number, agent_def):
+        super().__init__(simulation, model, agent_number, agent_def)
+        self.strategy = Mem()

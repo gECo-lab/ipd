@@ -36,7 +36,11 @@
     "TitFor2TatPlayer",
     "GradualPlayer",
     "PavlovPlayer",
-    "ProberPlayer"
+    "ProberPlayer",
+    "SoftMajorityPlayer",
+    "HardMajorityPlayer",
+    "MistrustPlayer",
+    "MemPlayer"
   ]
   ,
   "agents": [
@@ -160,6 +164,42 @@
         {
           "agent_type": "ProberPlayer",
           "agent_prefix": "Prober",
+          "agent_spaces": [
+            "IpdGame"
+          ],
+          "no_of_agents": 30,
+          "has_observer": true
+        },
+        {
+          "agent_type": "MistrustPlayer",
+          "agent_prefix": "Mis",
+          "agent_spaces": [
+            "IpdGame"
+          ],
+          "no_of_agents": 30,
+          "has_observer": true
+        },
+        {
+          "agent_type": "SoftMajorityPlayer",
+          "agent_prefix": "SoftMajo",
+          "agent_spaces": [
+            "IpdGame"
+          ],
+          "no_of_agents": 30,
+          "has_observer": true
+        },
+        {
+          "agent_type": "HardMajorityPlayer",
+          "agent_prefix": "HardMajo",
+          "agent_spaces": [
+            "IpdGame"
+          ],
+          "no_of_agents": 30,
+          "has_observer": true
+        },
+        {
+          "agent_type": "MemPlayer",
+          "agent_prefix": "Mem",
           "agent_spaces": [
             "IpdGame"
           ],

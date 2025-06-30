@@ -560,11 +560,258 @@ class Prober(Strategy):
         if self.current_round == 3:
             if self.other_play[1] == "C" and self.other_play[2] == "C":
                 self.strategy = "D"
+
+        if self.current_round > 3:
+            if self.strategy == "D":
+                return "D"
         
             else:
                 return self.back_strategy.select_game(other_player)
         
         return self.strategy
     
+#Ultimas Estratégias
+class Mistrust(Strategy):
+  """
+  Mistrust
+
+  Mistrust
+  Defect first turn, copy last opponent play
+  """
+  def __init__(self):
+      super().__init__()
+      self.strategy_name = "mis"
+      self.strategy = ["C", "D"]
+      self.selected_strategy = "D"
+      self.others = {}
+
+  def update_game(self, aGame):
+      """ Get a game """
+      self.second_last_game = copy.copy(self.last_game)
+      self.last_game = copy.copy(self.game)
+    
+      self.game = aGame
+      self.update_memory(aGame)
+
+  def select_game(self, other_player):
+       """ Mistrust """
+       if self.last_game.other_play == "C":
+           self.selected_strategy = "C"
+       else:
+           self.selected_strategy = "D"
+
+       return self.selected_strategy
+  
+  def update_memory(self, aGame):
+      """Stores opponent's play history"""
+      if aGame.other_name not in self.others:
+          self.others[aGame.other_name] = []
+      self.others[aGame.other_name].append(aGame.other_play)
+
+class SoftMajority(Strategy):
+   """Soft Majority
+    -------------------------
+   Will count the number of cooperation and defection of the opponent.
+   If they are an equal number or more cooperation, will cooperate.
+   Else, will defect.
+
+
+   Notes
+   -----
+   Will always cooperate on the first turn.
+   Is the "cooperate" counterpart of the `Hard Majority` strategy.
+   """
+   def __init__(self):
+      super().__init__()
+      self.strategy_name = "SoftMajo"
+      self.strategy = ["C", "D"]
+      self.selected_strategy = "C"
+      self.others = {}
+      self.stats = {}
+
+   def update_game(self, aGame):
+      """ Get a game """
+      self.second_last_game = copy.copy(self.last_game)
+      self.last_game = copy.copy(self.game)
+    
+      self.game = aGame
+      self.update_memory(aGame)
+   
+   def select_game(self, other_player):
+        """Soft Majority """
+
+        name = other_player.name
+
+        if name not in self.stats:
+            self.selected_strategy = "C"
+            return self.selected_strategy
+
+        cooperations = self.stats[name]['C']
+        defects = self.stats[name]['D']
+
+        if cooperations >= defects:
+            self.selected_strategy = "C"
+        else:
+            self.selected_strategy = "D"
+
+        return self.selected_strategy
+
+   def update_memory(self, aGame):
+        """Stores opponent's play and statistics history"""    
+        
+        name = aGame.other_name
+
+        if name not in self.others:
+            self.others[name] = []
+
+        self.others[name].append(aGame.other_play)
+
+        if name not in self.stats:
+            self.stats[name] = {'C': 0, 'D': 0}
+
+        if self.last_game.other_play == "C":
+            self.stats[name]['C'] += 1
+        elif self.last_game.other_play == "D":
+            self.stats[name]['D'] += 1
+
+
+class HardMajority(Strategy):
+   """Hard Majority
+
+    Defects on the first move and defects if the number of defections of the opponent is greater than
+    or equal to the number of times she has cooperated. Else she cooperates (Axelrod 2006).
+    -------------------------
+   
+   """
+   def __init__(self):
+      super().__init__()
+      self.strategy_name = "HardMajo"
+      self.strategy = ["C", "D"]
+      self.selected_strategy = "D"
+      self.others = {}
+      self.stats = {}
+
+   def update_game(self, aGame):
+      """ Get a game """
+      self.second_last_game = copy.copy(self.last_game)
+      self.last_game = copy.copy(self.game)
+    
+      self.game = aGame
+      self.update_memory(aGame)
+
+   def select_game(self, other_player):
+        """Hard Majority """
+
+        name = other_player.name
+
+        if name not in self.stats:
+            self.selected_strategy = "D"
+            return self.selected_strategy
+
+        cooperations = self.stats[name]['C']
+        defects = self.stats[name]['D']
+
+        if cooperations > defects:
+            self.selected_strategy = "C"
+        else:
+            self.selected_strategy = "D"
+
+        return self.selected_strategy
+
+
+   def update_memory(self, aGame):
+        """Stores opponent's play and statistics history"""    
+        
+        name = aGame.other_name
+
+        if name not in self.others:
+            self.others[name] = []
+
+        self.others[name].append(aGame.other_play)
+
+        if name not in self.stats:
+            self.stats[name] = {'C': 0, 'D': 0}
+
+        if self.last_game.other_play == "C":
+            self.stats[name]['C'] += 1
+        elif self.last_game.other_play == "D":
+            self.stats[name]['D'] += 1
+
+class Mem(Strategy):
+   """mem2 behaves like tit_for_tat: in the first two moves,
+   and then shifts among three strategies all_d, tit_for_tat,
+   tf2t according to the interaction with the opponent on last two moves
+   """
+   def __init__(self):
+       super().__init__()
+       self.strategy_name = "mem"
+       self.strategy = "C"
+       self.selected_strategy = "C"
+       self.others = {}
+       self.round = 0
+       self.current_strategy = "TFT"
+
+       self.tft = TitForTat()
+       self.alld = AlwaysDefect()
+       self.tf2t = TitFor2Tat()
+
+   def update_game(self, aGame):
+      """ Get a game """
+      self.second_last_game = copy.copy(self.last_game)
+      self.last_game = copy.copy(self.game)
+    
+      self.game = aGame
+      self.update_memory(aGame)
+
+      self.tft.update_game(aGame)
+      self.alld.update_game(aGame)
+      self.tf2t.update_game(aGame)
+
+   def select_play(self, other_player):
+       """Select a strategy for round"""
+       
+       if self.round != 0:
+           self.round -=1
+           return self.current_strategy
+
+       last_two = self.opponent_last_plays(other_player, n=2, default="C")
+
+       if last_two[0] == "C" and last_two[1] == "C":
+          self.round = 2
+          self.current_strategy = "TFT"
+
+       elif last_two[0] == "D" and last_two[1] == "D":
+          self.round = 2
+          self.current_strategy = "ALLD"
+      
+       elif last_two[0] == "D" or last_two[1] == "D":
+          self.round = 2
+          self.current_strategy = "TF2T"
+       
+       self.selected_strategy = self.current_strategy
+       return self.current_strategy
+
+   def select_game(self, other_player):
+       """Mem strategy"""
+
+       if self.current_strategy == "TFT":
+          self.selected_strategy = self.tft.select_game(other_player)
+       elif self.current_strategy == "ALLD":
+          self.selected_strategy = self.alld.select_game(other_player)
+       elif self.current_strategy == "TF2T":
+          self.selected_strategy = self.tf2t.select_game(other_player)
+
+       return self.selected_strategy   
+   
+   def update_memory(self, aGame):
+      """Stores opponent's play history"""
+      if aGame.other_name not in self.others:
+          self.others[aGame.other_name] = []
+      self.others[aGame.other_name].append(aGame.other_play)
 
 ##Estratégias de Determinant Zero:
+
+class DeterminatZero (Strategy):
+
+    def __init__(self):
+        super().__init__()
