@@ -545,6 +545,7 @@ class Prober(Strategy):
         self.other_play = []
         self.current_round = 0 
         self.back_strategy = TitForTat()
+        self.status = {}
 
     def update_game(self, aGame):
         self.other_play.append(aGame.other_play)
@@ -569,6 +570,25 @@ class Prober(Strategy):
                 return self.back_strategy.select_game(other_player)
         
         return self.strategy
+    
+    def update_memory(self, aGame):
+        """Stores opponent's play and statistics history"""    
+        
+        name = aGame.other_name
+
+        if name not in self.others:
+            self.others[name] = []
+
+        self.others[name].append(aGame.other_play)
+
+        if name not in self.stats:
+            self.stats[name] = {'C': 0, 'D': 0}
+
+        if self.last_game.other_play == "C":
+            self.stats[name]['C'] += 1
+        elif self.last_game.other_play == "D":
+            self.stats[name]['D'] += 1
+
     
 #Ultimas Estratégias
 class Mistrust(Strategy):
@@ -840,12 +860,13 @@ class Proba(Strategy):
     """
     def __init__(self, first, p1, p2, p3, p4, name=None):
         super().__init__()
+        self.strategy_name = "Proba"
         self.first = first
         self.p1 = p1
         self.p2 = p2
         self.p3 = p3
         self.p4 = p4
-        self.strategy_name = name if name else f"proba{first}_{p1:.1f}_{p2:.1f}_{p3:.1f}_{p4:.1f}"
+        #self.strategy_name = name if name else f"proba{first}_{p1:.1f}_{p2:.1f}_{p3:.1f}_{p4:.1f}"
         self.stats = {}  # Guarda histórico de cada oponente
 
     def update_game(self, aGame):
@@ -870,7 +891,7 @@ class Proba(Strategy):
         my_prev = self.stats[name]["my_prev"]
         its_prev = self.stats[name]["its_prev"]
 
-        rnd = np.random.uniform(0, 1)
+        rnd = random.uniform(0, 1)
 
         if my_prev == "C" and its_prev == "C":
             return "C" if rnd < self.p1 else "D"

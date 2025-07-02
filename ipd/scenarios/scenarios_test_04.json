@@ -34,7 +34,7 @@
       ],
     "agents_init": {
 
-        "BadPlayer": [
+        "HardMajorityPlayer": [
           {
             "var_name": "my_payoff",
             "var_type": "integer",
@@ -74,11 +74,11 @@
             "var_name": "strategy_name",
             "var_type": "character",
             "var_dist": "none",
-            "var_value": "all_d",
+            "var_value": "Hard_Majo",
             "observed": true
             }
             ],
-                "ProberPlayer": [
+                "MemPlayer": [
                   {
                     "var_name": "my_payoff",
                     "var_type": "integer",
@@ -118,7 +118,7 @@
                     "var_name": "strategy_name",
                     "var_type": "character",
                     "var_dist": "none",
-                    "var_value": "Prober",
+                    "var_value": "Mem",
                     "observed": true
                   }
                 ]

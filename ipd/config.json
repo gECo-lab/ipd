@@ -13,7 +13,7 @@
      "files":
     {
       "model": "model_test_02.json",
-      "scenarios": "scenarios_test_02.json",
+      "scenarios": "scenarios_test_04.json",
       "analisys": "ipd.rmd",
       "results": "ipd.html"      
     }
