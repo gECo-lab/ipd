@@ -33,7 +33,7 @@
         }
       ],
     "agents_init": {
-                "HardTitForTatPlayer": [
+                "MemPlayer": [
                   {
                     "var_name": "my_payoff",
                     "var_type": "integer",
@@ -73,7 +73,7 @@
                     "var_name": "strategy_name",
                     "var_type": "character",
                     "var_dist": "none",
-                    "var_value": "hard_tft",
+                    "var_value": "Mem",
                     "observed": true
                   }
                 ],

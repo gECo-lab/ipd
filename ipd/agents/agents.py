@@ -2,7 +2,7 @@
 """ Agents for the iterated prisioners dilemma model """
 
 from kernel.agent.basicAgents import DiscreteEventAgent
-from .ipd_action_set2 import *
+from .ipd_action_set2_copy import *
 
 
 class Player(DiscreteEventAgent):
@@ -174,3 +174,16 @@ class MemPlayer(Player):
     def __init__(self, simulation, model, agent_number, agent_def):
         super().__init__(simulation, model, agent_number, agent_def)
         self.strategy = Mem()
+
+class ZDEqualizerPlayer(Player):
+    """ZD Equalizer Player"""
+    def __init__(self, simulation, model, agent_number, agent_def):
+        super().__init__(simulation, model, agent_number, agent_def)
+        self.strategy = ZDEqualizer()
+
+
+class ZDExtortionPlayer(Player):
+    """ZD Extortion Player"""
+    def __init__(self, simulation, model, agent_number, agent_def):
+        super().__init__(simulation, model, agent_number, agent_def)
+        self.strategy = ZDExtortion()

@@ -771,7 +771,7 @@
                     "var_name": "other_payoff",
                     "var_type": "integer",
                     "var_dist": "none",
-                    "var_value": 1,
+                    "var_value": 30,
                     "observed": true
                   },
                   {
@@ -824,6 +824,94 @@
                     "var_type": "character",
                     "var_dist": "none",
                     "var_value": "Mem",
+                    "observed": true
+                  }
+                ],
+                "ZDExtortionPlayer": [
+                  {
+                    "var_name": "my_payoff",
+                    "var_type": "integer",
+                    "var_dist": "none",
+                    "var_value": 1,
+                    "observed": true
+                  },
+                  {
+                    "var_name": "my_play",
+                    "var_type": "character",
+                    "var_dist": "none",
+                    "var_value": "C",
+                    "observed": true
+                  },
+                  {
+                    "var_name": "other_name",
+                    "var_type": "character",
+                    "var_dist": "none",
+                    "var_value": " ",
+                    "observed": true
+                  },
+                  {
+                    "var_name": "other_play",
+                    "var_type": "character",
+                    "var_dist": "none",
+                    "var_value": "C",
+                    "observed": true
+                  },
+                  {
+                    "var_name": "other_payoff",
+                    "var_type": "integer",
+                    "var_dist": "none",
+                    "var_value": 1,
+                    "observed": true
+                  },
+                  {
+                    "var_name": "strategy_name",
+                    "var_type": "character",
+                    "var_dist": "none",
+                    "var_value": "ZDExt",
+                    "observed": true
+                  }
+                ],
+                "ZDEqualizerPlayer": [
+                  {
+                    "var_name": "my_payoff",
+                    "var_type": "integer",
+                    "var_dist": "none",
+                    "var_value": 1,
+                    "observed": true
+                  },
+                  {
+                    "var_name": "my_play",
+                    "var_type": "character",
+                    "var_dist": "none",
+                    "var_value": "C",
+                    "observed": true
+                  },
+                  {
+                    "var_name": "other_name",
+                    "var_type": "character",
+                    "var_dist": "none",
+                    "var_value": " ",
+                    "observed": true
+                  },
+                  {
+                    "var_name": "other_play",
+                    "var_type": "character",
+                    "var_dist": "none",
+                    "var_value": "C",
+                    "observed": true
+                  },
+                  {
+                    "var_name": "other_payoff",
+                    "var_type": "integer",
+                    "var_dist": "none",
+                    "var_value": 1,
+                    "observed": true
+                  },
+                  {
+                    "var_name": "strategy_name",
+                    "var_type": "character",
+                    "var_dist": "none",
+                    "var_value": "ZDEqual",
                     "observed": true
                   }
                 ]
