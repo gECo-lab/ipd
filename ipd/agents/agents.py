@@ -2,7 +2,7 @@
 """ Agents for the iterated prisioners dilemma model """
 
 from kernel.agent.basicAgents import DiscreteEventAgent
-from .ipd_action_set import *
+from .ipd_action_set2_copy import *
 
 
 class Player(DiscreteEventAgent):
@@ -97,25 +97,31 @@ class RancorousWithRecallPlayer(Player):
         super().__init__(simulation, model, agent_number, agent_def)
         self.strategy = Rancorous()
 
-#Nathan Group
-
-class HardTitForTatPlayer(Player):
-    """ Hard Tit For Tat """
+class GenericStrategyPlayer(Player):
+    """Implemnts a player with memory and generic strategies"""
     def __init__(self, simulation, model, agent_number, agent_def):
         super().__init__(simulation, model, agent_number, agent_def)
-        self.strategy = HardTitForTat()
+        self.strategy = Generic()
+        self.memory = Memory()
 
+#Nathan
 class PeriodicPlayer(Player):
     """ Periodic player C, D """
     def __init__(self, simulation, model, agent_number, agent_def):
         super().__init__(simulation, model, agent_number, agent_def)
         self.strategy = PerCD()
 
+class HardTitForTatPlayer(Player):
+    """ Hard Tit for tat player """
+    def __init__(self, simulation, model, agent_number, agent_def):
+        super().__init__(simulation, model, agent_number, agent_def)
+        self.strategy = HardTitForTat()
+
 class SlowTitForTatPlayer(Player):
     """Slow Tit for Tat Player"""
     def __init__(self, simulation, model, agent_number, agent_def):
         super().__init__(simulation, model, agent_number, agent_def)
-        self.strategy = SlowTifForTat()
+        self.strategy = SlowTitForTat()
 
 class TitFor2TatPlayer(Player):
     """Tit For 2 Tat Player"""
@@ -128,16 +134,56 @@ class GradualPlayer(Player):
     def __init__(self, simulation, model, agent_number, agent_def):
         super().__init__(simulation, model, agent_number, agent_def)
         self.strategy = Gradual()
+#FIM
 
-#FIM Group 
-
-class GenericStrategyPlayer(Player):
-    """Implemnts a player with memory and generic strategies"""
+class PavlovPlayer(Player):
+    """Pavlov Player"""
     def __init__(self, simulation, model, agent_number, agent_def):
         super().__init__(simulation, model, agent_number, agent_def)
-        self.strategy = Generic()
-        self.memory = Memory()
+        self.strategy = Pavlov()
+
+class ProberPlayer(Player):
+    """Prober Player"""
+    def __init__(self, simulation, model, agent_number, agent_def):
+        super().__init__(simulation, model, agent_number, agent_def)
+        self.strategy = Prober()
+
+#Novas
+
+class MistrustPlayer(Player):
+    """Mistrust Player"""
+    def __init__(self, simulation, model, agent_number, agent_def):
+        super().__init__(simulation, model, agent_number, agent_def)
+        self.strategy = Mistrust()
+
+class SoftMajorityPlayer(Player):
+    """ SoftMajority Player"""
+    def __init__(self, simulation, model, agent_number, agent_def):
+        super().__init__(simulation, model, agent_number, agent_def)
+        self.strategy = SoftMajority()
 
 
+class HardMajorityPlayer(Player):
+    """ HardMajority Player"""
+    def __init__(self, simulation, model, agent_number, agent_def):
+        super().__init__(simulation, model, agent_number, agent_def)
+        self.strategy = HardMajority()
+
+class MemPlayer(Player):
+    """ Mem Player"""
+    def __init__(self, simulation, model, agent_number, agent_def):
+        super().__init__(simulation, model, agent_number, agent_def)
+        self.strategy = Mem()
+
+class ZDEqualizerPlayer(Player):
+    """ZD Equalizer Player"""
+    def __init__(self, simulation, model, agent_number, agent_def):
+        super().__init__(simulation, model, agent_number, agent_def)
+        self.strategy = ZDEqualizer()
 
 
+class ZDExtortionPlayer(Player):
+    """ZD Extortion Player"""
+    def __init__(self, simulation, model, agent_number, agent_def):
+        super().__init__(simulation, model, agent_number, agent_def)
+        self.strategy = ZDExtortion()
