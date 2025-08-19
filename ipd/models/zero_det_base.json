@@ -22,7 +22,7 @@
       }
     }
   ],
-  "agents_classes": [
+  "agents_classes":[
     "GoodPlayer",
     "BadPlayer",
     "RandomPlayer",
@@ -32,10 +32,11 @@
     "RancorousWithRecallPlayer",
     "PeriodicPlayer",
     "HardTitForTatPlayer",
-    "SlowTitForTatPlayer",
+    "SlowTitForTatPlayer", 
     "TitFor2TatPlayer",
     "GradualPlayer"
-  ],
+  ]
+  ,
   "agents": [
     {
       "agent_type": "GoodPlayer",
@@ -65,22 +66,22 @@
       "has_observer": true
     },
     {
-      "agent_type": "TitForTatWithRecallPlayer",
-      "agent_prefix": "TTRCLl",
-      "agent_spaces": [
-        "IpdGame"
-      ],
-      "no_of_agents": 30,
-      "has_observer": true
+    "agent_type": "TitForTatWithRecallPlayer",
+    "agent_prefix": "TTRCLl",
+    "agent_spaces": [
+      "IpdGame"
+    ],
+    "no_of_agents": 30,
+    "has_observer": true
     },
     {
-      "agent_type": "TitForTatPlayer",
-      "agent_prefix": "TFT",
-      "agent_spaces": [
-        "IpdGame"
-      ],
-      "no_of_agents": 30,
-      "has_observer": true
+    "agent_type": "TitForTatPlayer",
+    "agent_prefix": "TFT",
+    "agent_spaces": [
+      "IpdGame"
+    ],
+    "no_of_agents": 30,
+    "has_observer": true
     },
     {
       "agent_type": "RancorousWithRecallPlayer",
@@ -100,50 +101,50 @@
       "no_of_agents": 30,
       "has_observer": true
     },
-    {
-      "agent_type": "PeriodicPlayer",
-      "agent_prefix": "PerCD",
-      "agent_spaces": [
-        "IpdGame"
-      ],
-      "no_of_agents": 30,
-      "has_observer": true
-    },
-    {
-      "agent_type": "HardTitForTatPlayer",
-      "agent_prefix": "HTFT",
-      "agent_spaces": [
-        "IpdGame"
-      ],
-      "no_of_agents": 30,
-      "has_observer": true
-    },
-    {
-      "agent_type": "SlowTitForTatPlayer",
-      "agent_prefix": "STFT",
-      "agent_spaces": [
-        "IpdGame"
-      ],
-      "no_of_agents": 30,
-      "has_observer": true
-    },
-    {
-      "agent_type": "TitFor2TatPlayer",
-      "agent_prefix": "TF2T",
-      "agent_spaces": [
-        "IpdGame"
-      ],
-      "no_of_agents": 30,
-      "has_observer": true
-    },
-    {
-      "agent_type": "GradualPlayer",
-      "agent_prefix": "Grad",
-      "agent_spaces": [
-        "IpdGame"
-      ],
-      "no_of_agents": 31,
-      "has_observer": true
-    }
-  ]
+     {
+          "agent_type": "PeriodicPlayer",
+          "agent_prefix": "PerCD",
+          "agent_spaces": [
+            "IpdGame"
+          ],
+          "no_of_agents": 30,
+          "has_observer": true
+        },
+        {
+          "agent_type": "HardTitForTatPlayer",
+          "agent_prefix": "HTFT",
+          "agent_spaces": [
+            "IpdGame"
+          ],
+          "no_of_agents": 30,
+          "has_observer": true
+        },
+        {
+          "agent_type": "SlowTitForTatPlayer",
+          "agent_prefix": "STFT",
+          "agent_spaces": [
+            "IpdGame"
+          ],
+          "no_of_agents": 30,
+          "has_observer": true
+        },
+        {
+          "agent_type": "TitFor2TatPlayer",
+          "agent_prefix": "TF2T",
+          "agent_spaces": [
+            "IpdGame"
+          ],
+          "no_of_agents": 30,
+          "has_observer": true
+        },
+        {
+          "agent_type": "GradualPlayer",
+          "agent_prefix": "Grad",
+          "agent_spaces": [
+            "IpdGame"
+          ],
+          "no_of_agents": 30,
+          "has_observer": true
+        }
+      ]
 }
