@@ -4,5 +4,5 @@ __all__ = ["Player", "GoodPlayer", "BadPlayer", "RandomPlayer", "TitForTatPlayer
            "TitFor2TatPlayer", "GradualPlayer", "HardTitForTatPlayer", 
            "SlowTitForTatPlayer", "PavlovPlayer", "ProberPlayer", 
            "SoftMajorityPlayer", "HardMajorityPlayer", "MistrustPlayer", 
-           "MemPlayer", "ZDEqualizerPlayer", "ZDEqualizerPlayer"
+           "MemPlayer", "ZDEqualizerPlayer", "ZDExtortionPlayer"
            ]

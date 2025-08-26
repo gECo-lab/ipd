@@ -917,4 +917,4 @@ class ZDExtortion(DeterminantZero):
         self.p1, self.p2, self.p3, self.p4 = self.computar()
 
     def computar(self):
-        return [8/9, 2/9, 11/18, 0] #0.88, 0.22, 0.61, 0
+        return [11/13, 1/2, 7/26, 0] 
