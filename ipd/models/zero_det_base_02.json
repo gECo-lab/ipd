@@ -34,7 +34,7 @@
       "agent_spaces": [
         "IpdGame"
       ],
-      "no_of_agents": 30,
+      "no_of_agents": 15,
       "has_observer": true
     },
       {
@@ -43,7 +43,7 @@
         "agent_spaces": [
           "IpdGame"
       ],
-        "no_of_agents": 30,
+        "no_of_agents": 15,
         "has_observer": true
       },
       {
