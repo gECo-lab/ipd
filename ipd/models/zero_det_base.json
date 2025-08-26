@@ -22,38 +22,29 @@
       }
     }
   ],
-  "agents_classes":[
+  "agents_classes": [
     "GoodPlayer",
     "HardTitForTatPlayer",
     "ZDExtortionPlayer"
   ],
   "agents": [
     {
-      "agent_type": "GoodPlayer",
-      "agent_prefix": "GPl",
+      "agent_type": "HardTitForTatPlayer",
+      "agent_prefix": "HTFT",
       "agent_spaces": [
         "IpdGame"
       ],
-      "no_of_agents": 30,
+      "no_of_agents": 1,
       "has_observer": true
     },
-      {
-        "agent_type": "HardTitForTatPlayer",
-        "agent_prefix": "HTFT",
-        "agent_spaces": [
-          "IpdGame"
+    {
+      "agent_type": "ZDExtortionPlayer",
+      "agent_prefix": "ZDExt",
+      "agent_spaces": [
+        "IpdGame"
       ],
-        "no_of_agents": 30,
-        "has_observer": true
-      },
-      {
-        "agent_type": "ZDExtortionPlayer",
-        "agent_prefix": "ZDExt",
-        "agent_spaces": [
-          "IpdGame"
-      ],
-        "no_of_agents": 30,
-        "has_observer": true
-    }        
+      "no_of_agents": 2,
+      "has_observer": true
+    }
   ]
 }
