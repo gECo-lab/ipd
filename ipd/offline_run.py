@@ -19,7 +19,7 @@ def main():
 
     # Read kernel_dir from config.json
     config_json_file = "config_zd_base.json"        
-    with open('config_zd_base.json') as config_file:
+    with open(config_json_file) as config_file:
         config = json.load(config_file)
         kernel_dir = config["paths"]["kernel"]
         analisys_dir = config["paths"]["analisys"]
