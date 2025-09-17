@@ -844,7 +844,7 @@ class Proba(Strategy):
         # Caso (D, D)
         return "C" if rnd < self.p4 else "D"
 
-class DeterminantZero (Strategy):
+class ZeroDeterminat (Strategy):
 
    def __init__(self,):
       super().__init__()
@@ -897,18 +897,33 @@ class DeterminantZero (Strategy):
         return "C" if r < self.p4 else "D"
 
    
-class ZDEqualizer(DeterminantZero):
+class ZDEqualizer(ZeroDeterminat):
     
    def __init__(self):
-       super().__init__()
-       self.strategy_name = "equalizer"
+        super().__init__()
+        self.strategy_name = "equalizer"
 
-       self.p1, self.p2, self.p3, self.p4 = self.computar()
+        
+        self.p1, self.p2, self.p3, self.p4 = self.computar()
        
    def computar(self):
-       return [3/4, 1/4, 1/2, 1/4] #0.75, 0.25, 0.5, 0.25
 
-class ZDExtortion(DeterminantZero):
+        R = self.payoff_matrix["R"]
+        S = self.payoff_matrix["S"]
+        T = self.payoff_matrix["T"]
+        P = self.payoff_matrix["P"]
+
+        self.p1 = 0.7
+        self.p4 = 0.1  
+
+        # Fórmulas de Press & Dyson [8] 
+        self.p2 = (self.p1 * (T - P) - (1 + self.p4) * (T - R)) / (R - P)
+        self.p3 = ((1-self.p1) * (P - S) + self.p4*(R - S)) / (R - P)
+
+        return [self.p1, self.p2, self.p3, self.p4]
+class ZDExtortion(ZeroDeterminat):
+    '''
+    '''
     
     def __init__(self):
         super().__init__()
@@ -917,4 +932,33 @@ class ZDExtortion(DeterminantZero):
         self.p1, self.p2, self.p3, self.p4 = self.computar()
 
     def computar(self):
+        
         return [11/13, 1/2, 7/26, 0] 
+    
+class ZDExtortion2(ZeroDeterminat):
+    """Extortion strategy
+    chi = extortion factor >= 1
+    phi = midpoint
+    """
+    def __init__(self):
+        super().__init__()
+        self.strategy_name = "extortion"
+        self.chi = 1
+        self.phi = 0.02
+
+        self.p1, self.p2, self.p3, self.p4 = self.computar()
+
+    def computar(self):
+
+        R = self.payoff_matrix["R"]
+        S = self.payoff_matrix["S"]
+        T = self.payoff_matrix["T"]
+        P = self.payoff_matrix["P"]
+        
+        # Fórmulas de Press & Dyson [12] 
+        self.p1 = 1 - self.phi * (self.chi - 1)*((R-S)/(P-S))
+        self.p2 = 1 - self.phi * (1+ self.chi * ((T-P)/(P-S)))
+        self.p3 = self.phi * (self.chi + ((T-P)/(P-S)))
+        self.p4 = 0
+
+        return [self.p1, self.p2, self.p3, self.p4]
