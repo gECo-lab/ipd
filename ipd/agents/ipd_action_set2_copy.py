@@ -844,7 +844,7 @@ class Proba(Strategy):
         # Caso (D, D)
         return "C" if rnd < self.p4 else "D"
 
-class DeterminantZero (Strategy):
+class ZeroDeterminant (Strategy):
 
    def __init__(self,):
       super().__init__()
@@ -897,7 +897,7 @@ class DeterminantZero (Strategy):
         return "C" if r < self.p4 else "D"
 
    
-class ZDEqualizer(DeterminantZero):
+class ZDEqualizer(ZeroDeterminant):
     
    def __init__(self):
        super().__init__()
@@ -908,7 +908,7 @@ class ZDEqualizer(DeterminantZero):
    def computar(self):
        return [3/4, 1/4, 1/2, 1/4] #0.75, 0.25, 0.5, 0.25
 
-class ZDExtortion(DeterminantZero):
+class ZDExtortion(ZeroDeterminant):
     
     def __init__(self):
         super().__init__()

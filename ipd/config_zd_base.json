@@ -12,7 +12,7 @@
     },
   "files":
     {
-      "model": "zero_det_base.json",
+      "model": "zero_det_base_01.json",
       "scenarios": "zero_det_scn_base.json",
       "analisys": "ipd.rmd",
       "results": "ipd.html"      
