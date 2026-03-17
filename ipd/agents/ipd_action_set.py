@@ -1034,3 +1034,125 @@ class ZDExtortion2(ZeroDeterminat):
 
         return [self.p1, self.p2, self.p3, self.p4]
 
+
+# New ZeroDeterminant with de Lin an Sun (2026).
+
+class ZeroDeterminat (Strategy):
+
+   def __init__(self,):
+      super().__init__()
+      self.strategy_name = "ZD"
+      self.strategy = ["C", "D"]
+      self.first = "C"
+      #self.alpha = alpha
+      #self.beta = beta
+      #self.gamma = gamma
+      self.payoff_matrix ={ "R": 3, "S": 0, "T": 5,"P": 1}
+
+      self.stats = {}
+
+      self.p1, self.p2, self.p3, self.p4 = self.computar()
+
+   def update_game(self, aGame):
+        """Atualiza a memória da última jogada"""
+        self.last_game = copy.copy(self.game)
+        self.game = aGame
+
+        name = aGame.other_name
+        if name not in self.stats:
+            self.stats[name] = {"my_prev": None, "its_prev": None}
+
+        self.stats[name]["its_prev"] = aGame.other_play
+        self.stats[name]["my_prev"] = aGame.my_play 
+
+   def computar(self):
+    # implementar fórmula Press & Dyson
+    return [0.8, 0.3, 0.4, 0.1]
+   
+   def select_game(self, other_player):
+    name = other_player.name
+
+    if name not in self.stats or self.stats[name]["my_prev"] is None:
+        return self.first
+
+    my_prev = self.stats[name]["my_prev"]
+    its_prev = self.stats[name]["its_prev"]
+
+    r = random.random()
+
+    if my_prev == "C" and its_prev == "C":
+        return "C" if r < self.p1 else "D"
+    elif my_prev == "C" and its_prev == "D":
+        return "C" if r < self.p2 else "D"
+    elif my_prev == "D" and its_prev == "C":
+        return "C" if r < self.p3 else "D"
+    else:
+        return "C" if r < self.p4 else "D"
+
+class ZDEqualizer(ZeroDeterminat):
+    
+   def __init__(self):
+        super().__init__()
+        self.strategy_name = "equalizer"
+
+        
+        self.p1, self.p2, self.p3, self.p4 = self.computar()
+       
+   def computar(self):
+
+        R = self.payoff_matrix["R"]
+        S = self.payoff_matrix["S"]
+        T = self.payoff_matrix["T"]
+        P = self.payoff_matrix["P"]
+
+        self.p1 = 0.7
+        self.p4 = 0.1  
+
+        # Fórmulas de Press & Dyson [8] 
+        self.p2 = (self.p1 * (T - P) - (1 + self.p4) * (T - R)) / (R - P)
+        self.p3 = ((1-self.p1) * (P - S) + self.p4*(R - S)) / (R - P)
+
+        return [self.p1, self.p2, self.p3, self.p4]
+
+class ZDExtortion(ZeroDeterminat):
+    '''
+    '''
+    
+    def __init__(self):
+        super().__init__()
+        self.strategy_name = "extortion"
+
+        self.p1, self.p2, self.p3, self.p4 = self.computar()
+
+    def computar(self):
+        
+        return [11/13, 1/2, 7/26, 0] 
+    
+class ZDExtortion2(ZeroDeterminat):
+    """Extortion strategy
+    chi = extortion factor >= 1
+    phi = midpoint
+    """
+    def __init__(self):
+        super().__init__()
+        self.strategy_name = "extortion"
+        self.chi = 1
+        self.phi = 0.02
+
+        self.p1, self.p2, self.p3, self.p4 = self.computar()
+
+    def computar(self):
+
+        R = self.payoff_matrix["R"]
+        S = self.payoff_matrix["S"]
+        T = self.payoff_matrix["T"]
+        P = self.payoff_matrix["P"]
+        
+        # Fórmulas de Press & Dyson [12] 
+        self.p1 = 1 - self.phi * (self.chi - 1)*((R-S)/(P-S))
+        self.p2 = 1 - self.phi * (1+ self.chi * ((T-P)/(P-S)))
+        self.p3 = self.phi * (self.chi + ((T-P)/(P-S)))
+        self.p4 = 0
+
+        return [self.p1, self.p2, self.p3, self.p4]
+    
