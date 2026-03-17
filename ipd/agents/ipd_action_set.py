@@ -293,8 +293,8 @@ class HardTitForTat (Strategy):
 
 """Nathan"""
 
-class SlowTifForTat (Strategy):
-   """ Slow Tif For Tat Strategy
+class SlowTitForTat (Strategy):
+   """ Slow Tit For Tat Strategy
   
    Cooperates the two first moves, then begin to defect after two consecutive defections of its opponent.
    Returns to cooperation after two consecutive cooperations of its opponent.
@@ -926,7 +926,7 @@ class Proba(Strategy):
         # Caso (D, D)
         return "C" if rnd < self.p4 else "D"
 
-class DeterminantZero (Strategy):
+class ZeroDeterminat (Strategy):
 
    def __init__(self,):
       super().__init__()
@@ -979,7 +979,7 @@ class DeterminantZero (Strategy):
         return "C" if r < self.p4 else "D"
 
    
-class ZDEqualizer(DeterminantZero):
+class ZDEqualizer(ZeroDeterminat):
     
    def __init__(self):
         super().__init__()
@@ -991,7 +991,7 @@ class ZDEqualizer(DeterminantZero):
    def computar(self):
        return [3/4, 1/4, 1/2, 1/4] #0.75, 0.25, 0.5, 0.25
 
-class ZDExtortion(DeterminantZero):
+class ZDExtortion(ZeroDeterminat):
     
     def __init__(self):
         super().__init__()
@@ -1003,6 +1003,9 @@ class ZDExtortion(DeterminantZero):
         
         return [11/13, 1/2, 7/26, 0] 
     
+
+
+
 class ZDExtortion2(ZeroDeterminat):
     """Extortion strategy
     chi = extortion factor >= 1

@@ -1,0 +1,200 @@
+{
+  "simulation_name": "ipd",
+  "simulation_parameters": [
+    {
+      "parameter_name": "total_payoff",
+      "parameter_value": 0.0
+    }
+  ],
+  "model_name": "ipd",
+  "schedule": [
+    {
+      "schedule_type": "MixedSchedule",
+      "schedule_name": "MyMxSchd"
+    }
+  ],
+  "spaces": [
+    {
+      "space_type": "IpdGame",
+      "space_name": "IpdGame",
+      "space_variables": {
+        "payoffs": 0.0
+      }
+    }
+  ],
+  "agents_classes":[
+    "GoodPlayer",
+    "BadPlayer",
+    "RandomPlayer",
+    "TitForTatWithRecallPlayer",
+    "RancorousPlayer",
+    "PeriodicPlayer",
+    "HardTitForTatPlayer",
+    "SlowTitForTatPlayer", 
+    "TitFor2TatPlayer",
+    "GradualPlayer",
+    "PavlovPlayer",
+    "ProberPlayer",
+    "SoftMajorityPlayer",
+    "HardMajorityPlayer",
+    "MistrustPlayer",
+    "MemPlayer",
+    "ZDExtortionPlayer"
+  ]
+  ,
+  "agents": [
+    {
+      "agent_type": "GoodPlayer",
+      "agent_prefix": "all_c",
+      "agent_spaces": [
+        "IpdGame"
+      ],
+      "no_of_agents": 30,
+      "has_observer": true
+    },
+    {
+      "agent_type": "BadPlayer",
+      "agent_prefix": "all_d",
+      "agent_spaces": [
+        "IpdGame"
+      ],
+      "no_of_agents": 30,
+      "has_observer": true
+    },
+    {
+      "agent_type": "RandomPlayer",
+      "agent_prefix": "random",
+      "agent_spaces": [
+        "IpdGame"
+      ],
+      "no_of_agents": 30,
+      "has_observer": true
+    },
+    {
+    "agent_type": "TitForTatWithRecallPlayer",
+    "agent_prefix": "tft_rcl",
+    "agent_spaces": [
+      "IpdGame"
+    ],
+    "no_of_agents": 30,
+    "has_observer": true
+    },
+    {
+      "agent_type": "RancorousPlayer",
+      "agent_prefix": "grim_rcl",
+      "agent_spaces": [
+        "IpdGame"
+      ],
+      "no_of_agents": 30,
+      "has_observer": true
+    },
+     {
+          "agent_type": "PeriodicPlayer",
+          "agent_prefix": "perCD",
+          "agent_spaces": [
+            "IpdGame"
+          ],
+          "no_of_agents": 30,
+          "has_observer": true
+        },
+        {
+          "agent_type": "HardTitForTatPlayer",
+          "agent_prefix": "hard_tft",
+          "agent_spaces": [
+            "IpdGame"
+          ],
+          "no_of_agents": 30,
+          "has_observer": true
+        },
+        {
+          "agent_type": "SlowTitForTatPlayer",
+          "agent_prefix": "slow_tft",
+          "agent_spaces": [
+            "IpdGame"
+          ],
+          "no_of_agents": 30,
+          "has_observer": true
+        },
+        {
+          "agent_type": "TitFor2TatPlayer",
+          "agent_prefix": "tf2t",
+          "agent_spaces": [
+            "IpdGame"
+          ],
+          "no_of_agents": 30,
+          "has_observer": true
+        },
+        {
+          "agent_type": "GradualPlayer",
+          "agent_prefix": "gradual",
+          "agent_spaces": [
+            "IpdGame"
+          ],
+          "no_of_agents": 30,
+          "has_observer": true
+        },
+        {
+          "agent_type": "PavlovPlayer",
+          "agent_prefix": "pavlov",
+          "agent_spaces": [
+            "IpdGame"
+          ],
+          "no_of_agents": 30,
+          "has_observer": true
+        },
+        {
+          "agent_type": "ProberPlayer",
+          "agent_prefix": "prober",
+          "agent_spaces": [
+            "IpdGame"
+          ],
+          "no_of_agents": 30,
+          "has_observer": true
+        },
+        {
+          "agent_type": "SoftMajorityPlayer",
+          "agent_prefix": "soft_majo",
+          "agent_spaces": [
+            "IpdGame"
+          ],
+          "no_of_agents": 30,
+          "has_observer": true
+        },
+        {
+          "agent_type": "HardMajorityPlayer",
+          "agent_prefix": "hard_majo",
+          "agent_spaces": [
+            "IpdGame"
+          ],
+          "no_of_agents": 30,
+          "has_observer": true
+        },
+        {
+          "agent_type": "MistrustPlayer",
+          "agent_prefix": "mistrust",
+          "agent_spaces": [
+            "IpdGame"
+          ],
+          "no_of_agents": 30,
+          "has_observer": true
+        },
+        {
+          "agent_type": "MemPlayer",
+          "agent_prefix": "mem",
+          "agent_spaces": [
+            "IpdGame"
+          ],
+          "no_of_agents": 30,
+          "has_observer": true
+        },
+        {
+          "agent_type": "ZDExtortionPlayer",
+          "agent_prefix": "zd_ext",
+          "agent_spaces": [
+            "IpdGame"
+          ],
+          "no_of_agents": 30,
+          "has_observer": true
+        }
+      ]
+}

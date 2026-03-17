@@ -148,8 +148,6 @@ class ProberPlayer(Player):
         super().__init__(simulation, model, agent_number, agent_def)
         self.strategy = Prober()
 
-#Novas
-
 class MistrustPlayer(Player):
     """Mistrust Player"""
     def __init__(self, simulation, model, agent_number, agent_def):
