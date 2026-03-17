@@ -2,7 +2,7 @@
 """ Agents for the iterated prisioners dilemma model """
 
 from kernel.agent.basicAgents import DiscreteEventAgent
-from .ipd_action_set2_copy import *
+from .ipd_action_set import *
 
 
 class Player(DiscreteEventAgent):

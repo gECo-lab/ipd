@@ -29,8 +29,8 @@
   ],
   "agents": [
     {
-      "agent_type": "HardTitForTatPlayer",
-      "agent_prefix": "HTFT",
+      "agent_type": "GoodPlayer",
+      "agent_prefix": "allC",
       "agent_spaces": [
         "IpdGame"
       ],
@@ -43,7 +43,7 @@
       "agent_spaces": [
         "IpdGame"
       ],
-      "no_of_agents": 2,
+      "no_of_agents": 1,
       "has_observer": true
     }
   ]
