@@ -254,9 +254,6 @@ class ZDExtortionPressDysonExample(ZDExtortion):
 
 # Segundo código
 
-import copy
-import random
-
 
 class ZeroDeterminant(Strategy):
     """
@@ -291,11 +288,11 @@ class ZeroDeterminant(Strategy):
         self.p3 = None
         self.p4 = None
 
-    def _validar_probabilidade(self, valor, nome):
+    def validar_probabilidade(self, valor, nome):
         if not (0.0 <= valor <= 1.0):
             raise ValueError(f"{nome} = {valor} está fora de [0,1].")
 
-    def _finalizar_parametros(self):
+    def finalizar_parametros(self):
         """
         Chamar no final do __init__ da subclasse.
         """
@@ -332,7 +329,7 @@ class ZeroDeterminant(Strategy):
         self.stats[name]["my_prev"] = aGame.my_play
         self.stats[name]["its_prev"] = aGame.other_play
 
-    def _prob_cooperar(self, my_prev, its_prev):
+    def prob_cooperar(self, my_prev, its_prev):
         if my_prev == "C" and its_prev == "C":
             return self.p1
         elif my_prev == "C" and its_prev == "D":
@@ -361,12 +358,11 @@ class ZDEqualizer(ZeroDeterminant):
         super().__init__()
         self.strategy_name = "equalizer"
 
-        # definidos internamente, no seu padrão
         self.p0 = 1.0
         self.p1_livre = 0.7
         self.p4_livre = 0.1
 
-        self._finalizar_parametros()
+        self.finalizar_parametros()
 
     def computar(self):
         R = self.payoff_matrix["R"]
@@ -399,14 +395,14 @@ class ZDExtortion(ZeroDeterminant):
         super().__init__()
         self.strategy_name = "extortion"
 
-        # definidos internamente
+        
         self.p0 = 1.0
         self.chi = 3.0
 
-        # usar o ponto médio da faixa viável
+        # usar o ponto médio na faixa viável
         self.phi = self.phi_max() / 2.0
 
-        self._finalizar_parametros()
+        self.finalizar_parametros()
 
     def phi_max(self):
         S = self.payoff_matrix["S"]
