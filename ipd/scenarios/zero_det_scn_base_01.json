@@ -2,11 +2,11 @@
   "scenarios": [
     {
       "scenario_type": "Scenario",
-      "scenario_name": "ZD_Ext_Scenarios",
+      "scenario_name": "Scenarios",
       "scenario_parameters": [
         {
           "parameter_name": "no_of_runs",
-          "parameter_value": 1
+          "parameter_value": 3
         },
         {
           "parameter_name": "reset_each_run",

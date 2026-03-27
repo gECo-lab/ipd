@@ -2,7 +2,7 @@
   "scenarios": [
     {
       "scenario_type": "Scenario",
-      "scenario_name": "ZD_Ext_Scenarios",
+      "scenario_name": "ZD_Scenarios",
       "scenario_parameters": [
         {
           "parameter_name": "no_of_runs",

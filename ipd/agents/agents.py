@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 """ Agents for the iterated prisioners dilemma model """
 
-from kernel.agent.basicAgents import DiscreteEventAgent
+from EcoSimpy import DiscreteEventAgent
+#from kernel.agent.basicAgents import DiscreteEventAgent
 from .ipd_action_set import *
 
 
