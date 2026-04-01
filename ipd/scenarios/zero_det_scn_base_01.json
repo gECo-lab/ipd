@@ -2,11 +2,11 @@
   "scenarios": [
     {
       "scenario_type": "Scenario",
-      "scenario_name": "ZD_Ext_Scenarios",
+      "scenario_name": "Scenarios",
       "scenario_parameters": [
         {
           "parameter_name": "no_of_runs",
-          "parameter_value": 1
+          "parameter_value": 3
         },
         {
           "parameter_name": "reset_each_run",
@@ -210,7 +210,7 @@
               "observed": true
               }
                 ],  
-          "RancorousWithRecallPlayer": [
+          "RancorousPlayer": [
             {
               "var_name": "my_payoff",
               "var_type": "integer",
@@ -254,94 +254,6 @@
               "observed": true
               }
             ],
-          "TitForTatPlayer": [
-            {
-              "var_name": "my_payoff",
-              "var_type": "integer",
-              "var_dist": "none",
-              "var_value": 1,
-              "observed": true
-              },
-              {
-              "var_name": "my_play",
-              "var_type": "character",
-              "var_dist": "none",
-              "var_value": "C",
-              "observed": true
-              },
-              {
-              "var_name": "other_name",
-              "var_type": "character",
-              "var_dist": "none",
-              "var_value": " ",
-              "observed": true
-              },
-              {
-              "var_name": "other_play",
-              "var_type": "character",
-              "var_dist": "none",
-              "var_value": "C",
-              "observed": true
-              },  
-              {
-              "var_name": "other_payoff",
-              "var_type": "integer",
-              "var_dist": "none",
-              "var_value": 1,
-              "observed": true
-              },  
-              {
-              "var_name": "strategy_name",
-              "var_type": "character",
-              "var_dist": "none",
-              "var_value": "tft",
-              "observed": true
-              }
-                ],  
-          "RancorousPlayer": [
-            {
-              "var_name": "my_payoff",
-              "var_type": "integer",
-              "var_dist": "none",
-              "var_value": 1,
-              "observed": true
-              },
-              {
-              "var_name": "my_play",
-              "var_type": "character",
-              "var_dist": "none",
-              "var_value": "C",
-              "observed": true
-              },
-              {
-              "var_name": "other_name",
-              "var_type": "character",
-              "var_dist": "none",
-              "var_value": " ",
-              "observed": true
-              },
-              {
-              "var_name": "other_play",
-              "var_type": "character",
-              "var_dist": "none",
-              "var_value": "C",
-              "observed": true
-              },  
-              {
-              "var_name": "other_payoff",
-              "var_type": "integer",
-              "var_dist": "none",
-              "var_value": 1,
-              "observed": true
-              },  
-              {
-              "var_name": "strategy_name",
-              "var_type": "character",
-              "var_dist": "none",
-              "var_value": "grim",
-              "observed": true
-              }
-              ],
           "PeriodicPlayer": [
             {
               "var_name": "my_payoff",
@@ -562,7 +474,7 @@
                   "observed": true
                 }
               ],
-          "ZDExtortionPlayer": [
+            "PavlovPlayer": [
                 {
                   "var_name": "my_payoff",
                   "var_type": "integer",
@@ -602,7 +514,227 @@
                   "var_name": "strategy_name",
                   "var_type": "character",
                   "var_dist": "none",
-                  "var_value": "zd_ext",
+                  "var_value": "pavlov",
+                  "observed": true
+                }
+              ],
+            "ProberPlayer": [
+                {
+                  "var_name": "my_payoff",
+                  "var_type": "integer",
+                  "var_dist": "none",
+                  "var_value": 1,
+                  "observed": true
+                },
+                {
+                  "var_name": "my_play",
+                  "var_type": "character",
+                  "var_dist": "none",
+                  "var_value": "C",
+                  "observed": true
+                },
+                {
+                  "var_name": "other_name",
+                  "var_type": "character",
+                  "var_dist": "none",
+                  "var_value": " ",
+                  "observed": true
+                },
+                {
+                  "var_name": "other_play",
+                  "var_type": "character",
+                  "var_dist": "none",
+                  "var_value": "C",
+                  "observed": true
+                },
+                {
+                  "var_name": "other_payoff",
+                  "var_type": "integer",
+                  "var_dist": "none",
+                  "var_value": 1,
+                  "observed": true
+                },
+                {
+                  "var_name": "strategy_name",
+                  "var_type": "character",
+                  "var_dist": "none",
+                  "var_value": "prober",
+                  "observed": true
+                }
+              ],
+              "SoftMajorityPlayer": [
+                {
+                  "var_name": "my_payoff",
+                  "var_type": "integer",
+                  "var_dist": "none",
+                  "var_value": 1,
+                  "observed": true
+                },
+                {
+                  "var_name": "my_play",
+                  "var_type": "character",
+                  "var_dist": "none",
+                  "var_value": "C",
+                  "observed": true
+                },
+                {
+                  "var_name": "other_name",
+                  "var_type": "character",
+                  "var_dist": "none",
+                  "var_value": " ",
+                  "observed": true
+                },
+                {
+                  "var_name": "other_play",
+                  "var_type": "character",
+                  "var_dist": "none",
+                  "var_value": "C",
+                  "observed": true
+                },
+                {
+                  "var_name": "other_payoff",
+                  "var_type": "integer",
+                  "var_dist": "none",
+                  "var_value": 1,
+                  "observed": true
+                },
+                {
+                  "var_name": "strategy_name",
+                  "var_type": "character",
+                  "var_dist": "none",
+                  "var_value": "soft_maj",
+                  "observed": true
+                }
+              ],
+              "HardMajorityPlayer": [
+                {
+                  "var_name": "my_payoff",
+                  "var_type": "integer",
+                  "var_dist": "none",
+                  "var_value": 1,
+                  "observed": true
+                },
+                {
+                  "var_name": "my_play",
+                  "var_type": "character",
+                  "var_dist": "none",
+                  "var_value": "C",
+                  "observed": true
+                },
+                {
+                  "var_name": "other_name",
+                  "var_type": "character",
+                  "var_dist": "none",
+                  "var_value": " ",
+                  "observed": true
+                },
+                {
+                  "var_name": "other_play",
+                  "var_type": "character",
+                  "var_dist": "none",
+                  "var_value": "C",
+                  "observed": true
+                },
+                {
+                  "var_name": "other_payoff",
+                  "var_type": "integer",
+                  "var_dist": "none",
+                  "var_value": 1,
+                  "observed": true
+                },
+                {
+                  "var_name": "strategy_name",
+                  "var_type": "character",
+                  "var_dist": "none",
+                  "var_value": "hard_majo",
+                  "observed": true
+                }
+              ],
+            "MistrustPlayer": [
+                {
+                  "var_name": "my_payoff",
+                  "var_type": "integer",
+                  "var_dist": "none",
+                  "var_value": 1,
+                  "observed": true
+                },
+                {
+                  "var_name": "my_play",
+                  "var_type": "character",
+                  "var_dist": "none",
+                  "var_value": "C",
+                  "observed": true
+                },
+                {
+                  "var_name": "other_name",
+                  "var_type": "character",
+                  "var_dist": "none",
+                  "var_value": " ",
+                  "observed": true
+                },
+                {
+                  "var_name": "other_play",
+                  "var_type": "character",
+                  "var_dist": "none",
+                  "var_value": "C",
+                  "observed": true
+                },
+                {
+                  "var_name": "other_payoff",
+                  "var_type": "integer",
+                  "var_dist": "none",
+                  "var_value": 1,
+                  "observed": true
+                },
+                {
+                  "var_name": "strategy_name",
+                  "var_type": "character",
+                  "var_dist": "none",
+                  "var_value": "mistrust",
+                  "observed": true
+                }
+              ],
+            "MemPlayer": [
+                {
+                  "var_name": "my_payoff",
+                  "var_type": "integer",
+                  "var_dist": "none",
+                  "var_value": 1,
+                  "observed": true
+                },
+                {
+                  "var_name": "my_play",
+                  "var_type": "character",
+                  "var_dist": "none",
+                  "var_value": "C",
+                  "observed": true
+                },
+                {
+                  "var_name": "other_name",
+                  "var_type": "character",
+                  "var_dist": "none",
+                  "var_value": " ",
+                  "observed": true
+                },
+                {
+                  "var_name": "other_play",
+                  "var_type": "character",
+                  "var_dist": "none",
+                  "var_value": "C",
+                  "observed": true
+                },
+                {
+                  "var_name": "other_payoff",
+                  "var_type": "integer",
+                  "var_dist": "none",
+                  "var_value": 1,
+                  "observed": true
+                },
+                {
+                  "var_name": "strategy_name",
+                  "var_type": "character",
+                  "var_dist": "none",
+                  "var_value": "mem",
                   "observed": true
                 }
               ]

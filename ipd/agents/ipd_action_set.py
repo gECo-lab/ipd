@@ -293,8 +293,8 @@ class HardTitForTat (Strategy):
 
 """Nathan"""
 
-class SlowTifForTat (Strategy):
-   """ Slow Tif For Tat Strategy
+class SlowTitForTat (Strategy):
+   """ Slow Tit For Tat Strategy
   
    Cooperates the two first moves, then begin to defect after two consecutive defections of its opponent.
    Returns to cooperation after two consecutive cooperations of its opponent.
@@ -926,108 +926,388 @@ class Proba(Strategy):
         # Caso (D, D)
         return "C" if rnd < self.p4 else "D"
 
-class DeterminantZero (Strategy):
 
-   def __init__(self,):
-      super().__init__()
-      self.strategy_name = "ZD"
-      self.strategy = ["C", "D"]
-      self.first = "C"
-      #self.alpha = alpha
-      #self.beta = beta
-      #self.gamma = gamma
-      self.payoff_matrix ={ "R": 3, "S": 0, "T": 5,"P": 1}
+class ZeroDeterminant(Strategy):
+    """
+    Base class for memory-one Zero-Determinant (ZD) strategies in the
+    Iterated Prisoner's Dilemma (IPD).
 
-      self.stats = {}
+    A ZD strategy is defined by five cooperation probabilities:
+        p0 : probability of cooperating in the first round against a given opponent
+        p1 : probability of cooperating after CC
+        p2 : probability of cooperating after CD
+        p3 : probability of cooperating after DC
+        p4 : probability of cooperating after DD
 
-      self.p1, self.p2, self.p3, self.p4 = self.computar()
+    Here, each two-letter state is written from this player's perspective:
+        CC -> both players cooperated in the previous round
+        CD -> this player cooperated and the opponent defected
+        DC -> this player defected and the opponent cooperated
+        DD -> both players defected
 
-   def update_game(self, aGame):
-        """Atualiza a memória da última jogada"""
-        self.last_game = copy.copy(self.game)
+    This class stores opponent-specific memory, updates the last observed state
+    after each interaction, and uses the corresponding conditional probability
+    to choose the next action. Subclasses must implement the parameterization
+    that determines p1, p2, p3, and p4.
+    """
+
+    def __init__(self):
+        super().__init__()
+
+        self.strategy_name = "ZD"
+        self.strategy = ["C", "D"]
+
+        # Payoffs matrix
+        self.payoff_matrix = {
+            "R": 3,
+            "S": 0,
+            "T": 5,
+            "P": 1
+        }
+
+        # Memory
+        self.stats = {}
+
+        # First meet probability
+        self.p0 = None
+
+        # memory-1
+        self.p1 = None
+        self.p2 = None
+        self.p3 = None
+        self.p4 = None
+
+    def probability_validate(self, valor, probability):
+        """
+        Compute and validate the full set of ZD probabilities.
+
+        This method must be called at the end of each subclass constructor
+        after all free parameters have been assigned. It computes
+        p1, p2, p3, and p4 through `compute()`, validates p0 through p4,
+        and stores them as floats.
+        """
+        
+        if valor is None:
+            raise ValueError(f"{probability} not defined.")
+        if not (0.0 <= float(valor) <= 1.0):
+            raise ValueError(f"{probability} = {valor} out of [0,1].")
+
+    def probabilities(self):
+
+        p1, p2, p3, p4 = self.compute()
+
+        self.probability_validate(self.p0, "p0")
+        self.probability_validate(p1, "p1")
+        self.probability_validate(p2, "p2")
+        self.probability_validate(p3, "p3")
+        self.probability_validate(p4, "p4")
+
+        self.p0 = float(self.p0)
+        self.p1 = float(p1)
+        self.p2 = float(p2)
+        self.p3 = float(p3)
+        self.p4 = float(p4)
+
+    def compute(self):
+        """
+        Compute the conditional cooperation probabilities of the strategy.
+
+        Returns
+        -------
+        list[float]
+            A list in the form [p1, p2, p3, p4].
+
+        Notes
+        -----
+        This method must be implemented by subclasses.
+        """
+
+    def vetor_p(self):
+        """ 
+        Return the memory-one cooperation vector.
+        """
+
+        return (self.p1, self.p2, self.p3, self.p4)
+
+    def test(self):
+        """
+        Return a compact diagnostic summary of the strategy parameters.
+
+        Returns
+        -------
+        dict
+            A dictionary containing the strategy name, p0, the memory-one
+            vector p, and the payoff matrix. If available, additional
+            parameters such as chi and phi are also included.
+        """
+
+        info = {
+            "strategy_name": self.strategy_name,
+            "p0": self.p0,
+            "p": self.vetor_p(),
+            "payoff_matrix": self.payoff_matrix
+        }
+
+        if hasattr(self, "chi"):
+            info["chi"] = self.chi
+        if hasattr(self, "phi"):
+            info["phi"] = self.phi
+
+        return info
+
+    def update_game(self, aGame):
+        self.last_game = copy.copy(getattr(self, "game", None))
         self.game = aGame
 
         name = aGame.other_name
         if name not in self.stats:
             self.stats[name] = {"my_prev": None, "its_prev": None}
 
+        self.stats[name]["my_prev"] = aGame.my_play
         self.stats[name]["its_prev"] = aGame.other_play
-        self.stats[name]["my_prev"] = aGame.my_play 
 
-   def computar(self):
-    # implementar fórmula Press & Dyson
-    return [0.8, 0.3, 0.4, 0.1]
-   
-   def select_game(self, other_player):
-    name = other_player.name
+    def cooperation(self, my_prev, its_prev):
+        """
+        Return the probability of cooperating given the previous state.
 
-    if name not in self.stats or self.stats[name]["my_prev"] is None:
-        return self.first
+        Parameters
+        ----------
+        my_prev : str
+            This player's previous action, expected to be "C" or "D".
+        its_prev : str
+            Opponent's previous action, expected to be "C" or "D".
 
-    my_prev = self.stats[name]["my_prev"]
-    its_prev = self.stats[name]["its_prev"]
+        Returns
+        -------
+        float
+            The corresponding cooperation probability among p1, p2, p3, p4.
+        """
 
-    r = random.random()
+        if my_prev == "C" and its_prev == "C":
+            return self.p1
+        elif my_prev == "C" and its_prev == "D":
+            return self.p2
+        elif my_prev == "D" and its_prev == "C":
+            return self.p3
+        elif my_prev == "D" and its_prev == "D":
+            return self.p4
+        else:
+            raise ValueError(f"Estado inválido: my_prev={my_prev}, its_prev={its_prev}")
 
-    if my_prev == "C" and its_prev == "C":
-        return "C" if r < self.p1 else "D"
-    elif my_prev == "C" and its_prev == "D":
-        return "C" if r < self.p2 else "D"
-    elif my_prev == "D" and its_prev == "C":
-        return "C" if r < self.p3 else "D"
-    else:
-        return "C" if r < self.p4 else "D"
+    def select_game(self, other_player):
+        name = other_player.name
+        state = self.stats.get(name)
 
-   
-class ZDEqualizer(DeterminantZero):
+        if state is None or state["my_prev"] is None:
+            return "C" if random.random() < self.p0 else "D"
+
+        prob = self.cooperation(
+            state["my_prev"],
+            state["its_prev"]
+        )
+
+        return "C" if random.random() < prob else "D"
     
-   def __init__(self):
-        super().__init__()
-        self.strategy_name = "equalizer"
 
-        
-        self.p1, self.p2, self.p3, self.p4 = self.computar()
-       
-   def computar(self):
-       return [3/4, 1/4, 1/2, 1/4] #0.75, 0.25, 0.5, 0.25
+class ZDEqualizer(ZeroDeterminant):
+    """
+    Equalizer Zero-Determinant strategy.
 
-class ZDExtortion(DeterminantZero):
-    
+    An equalizer strategy is designed to fix the opponent's long-run
+    expected payoff at a specific value, regardless of the opponent's
+    memory-one strategy, provided the underlying theoretical assumptions
+    hold.
+
+    This implementation uses p0, p1, and p4 as free inputs, and computes
+    p2 and p3 from the Press and Dyson equalizer equations.
+    """
+
     def __init__(self):
-        super().__init__()
-        self.strategy_name = "extortion"
+        """
+        Initialize a fixed equalizer strategy.
 
-        self.p1, self.p2, self.p3, self.p4 = self.computar()
-
-    def computar(self):
+        The free 'livre' parameters are chosen internally and the remaining
+        conditional probabilities are computed and validated.
+        """
         
-        return [11/13, 1/2, 7/26, 0] 
+        super().__init__()
+
+        self.strategy_name = "ZD_Equalizer"
+
+        self.p0 = 1.0
+        self._p1_livre = 0.7
+        self._p4_livre = 0.1
+
+        self.probabilities()
+
+
+    def compute(self):
+        """
+        Compute the equalizer probability vector.
+
+        Returns
+        -------
+        list[float]
+            The list [p1, p2, p3, p4] implied by the equalizer formulas.
+
+        Raises
+        ------
+        ValueError
+            If the payoff structure makes the equalizer formula undefined.
+        """
+                
+        R = self.payoff_matrix["R"]
+        S = self.payoff_matrix["S"]
+        T = self.payoff_matrix["T"]
+        P = self.payoff_matrix["P"]
+
+        p1 = self._p1_livre
+        p4 = self._p4_livre
+
+        p2 = (p1 * (T - P) - (1 + p4) * (T - R)) / (R - P)
+        p3 = ((1 - p1) * (P - S) + p4 * (R - S)) / (R - P)
+
+        return [p1, p2, p3, p4]
+
+    def score_imposed(self):
+        """
+        Compute the payoff level imposed on the opponent.
+
+        Returns
+        -------
+        float
+            The long-run payoff that the equalizer strategy is intended
+            to force on the opponent.
+
+        Raises
+        ------
+        ValueError
+            If the expression is undefined because the denominator is zero.
+
+        Press & Dyson, Eq. (9)
+        """
+
+        R = self.payoff_matrix["R"]
+        P = self.payoff_matrix["P"]
+
+        denom = (1 - self.p1) + self.p4
+        if denom == 0:
+            raise ValueError("the denominator is zero in score_imposed().")
+
+        return ((1 - self.p1) * P + self.p4 * R) / denom
     
-class ZDExtortion2(ZeroDeterminat):
-    """Extortion strategy
+class ZDExtortion(ZeroDeterminant):
+    """
+    
+    Extortionate Zero-Determinant strategy.
+
+    An extortion strategy enforces a linear relation between the long-run
+    payoffs of the two players, making any gain above the punishment payoff
+    P disproportionately favor the extortioner.
+
+    This implementation follows the Press and Dyson parameterization,
+    using an extortion factor chi >= 1 and a scaling factor phi within
+    its feasible range.
+    
     chi = extortion factor >= 1
     phi = midpoint
     """
+
     def __init__(self):
+        """
+        Initialize a fixed extortionate strategy.
+
+        The strategy uses a preset extortion factor chi, computes the
+        maximum feasible phi, sets phi at the midpoint of its admissible
+        range, and then computes the memory-one probabilities.
+        """
+
         super().__init__()
-        self.strategy_name = "extortion"
-        self.chi = 1
-        self.phi = 0.02
 
-        self.p1, self.p2, self.p3, self.p4 = self.computar()
+        self.strategy_name = "ZD_Extortion"
 
-    def computar(self):
+        self.p0 = 1.0
+        self.chi = 3.0
+
+        phi_max = self.phi_max()
+        self.phi = phi_max / 2.0
+
+        if not (0.0 < self.phi <= phi_max):
+            raise ValueError(
+                f"phi = {self.phi} is outside the feasible range (0, {phi_max}]."
+            )
+        
+        self.probabilities()
+
+
+    def phi_max(self):
+        """
+        Compute the maximum feasible value of phi.
+
+        Returns
+        -------
+        float
+            The upper bound of the admissible interval for phi.
+        """
+
+        S = self.payoff_matrix["S"]
+        T = self.payoff_matrix["T"]
+        P = self.payoff_matrix["P"]
+
+        return (P - S) / ((P - S) + self.chi * (T - P))
+
+    def compute(self):
+        """
+        Compute the extortionate probability vector.
+
+        Returns
+        -------
+        list[float]
+            The list [p1, p2, p3, p4] implied by the extortion formulas.
+
+        Raises
+        ------
+        """
 
         R = self.payoff_matrix["R"]
         S = self.payoff_matrix["S"]
         T = self.payoff_matrix["T"]
         P = self.payoff_matrix["P"]
-        
-        # Fórmulas de Press & Dyson [12] 
-        self.p1 = 1 - self.phi * (self.chi - 1)*((R-S)/(P-S))
-        self.p2 = 1 - self.phi * (1+ self.chi * ((T-P)/(P-S)))
-        self.p3 = self.phi * (self.chi + ((T-P)/(P-S)))
-        self.p4 = 0
 
-        return [self.p1, self.p2, self.p3, self.p4]
+        chi = self.chi
+        phi = self.phi
 
+        p1 = 1 - phi * (chi - 1) * ((R - P) / (P - S))
+        p2 = 1 - phi * (1 + chi * ((T - P) / (P - S)))
+        p3 = phi * (chi + ((T - P) / (P - S)))
+        p4 = 0.0
+
+        return [p1, p2, p3, p4]
+
+    def extortionate(self, s_x, s_y):
+        """
+        Evaluate the extortion relation for a pair of payoffs.
+
+        Parameters
+        ----------
+        s_x : float
+            Long-run payoff of the extortion strategy.
+        s_y : float
+            Long-run payoff of the opponent.
+
+        Returns
+        -------
+        tuple[float, float]
+            A pair (lhs, rhs) corresponding to:
+
+                lhs = s_x - P
+                rhs = chi * (s_y - P)
+
+            These two values should be equal when the extortion relation
+            holds exactly.
+        """
+                
+        P = self.payoff_matrix["P"]
+        lhs = s_x - P
+        rhs = self.chi * (s_y - P)
+        return lhs, rhs

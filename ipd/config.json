@@ -1,0 +1,13 @@
+{
+    "Description": "Configuration file for EcoSimpy simulation",
+    "Version": "0.0.2",
+    "License": "GPL-3.0",
+    "paths": {
+        "app": "/home/nathan/home/UFCG/gEco/Projetos/IPD/ipd/ipd",
+        "runs": "/home/nathan/home/UFCG/gEco/Projetos/IPD/ipd/ipd/runs/",
+        "results": "/home/nathan/home/UFCG/gEco/Projetos/IPD/ipd/ipd/results/",
+        "analisys": "/home/nathan/home/UFCG/gEco/Projetos/IPD/ipd/ipd/analisys/",
+        "models": "/home/nathan/home/UFCG/gEco/Projetos/IPD/ipd/ipd/models/",
+        "scenarios": "/home/nathan/home/UFCG/gEco/Projetos/IPD/ipd/ipd/scenarios/"
+    }
+}

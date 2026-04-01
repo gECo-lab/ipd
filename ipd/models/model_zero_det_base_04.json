@@ -1,0 +1,50 @@
+{
+  "simulation_name": "ipd",
+  "simulation_parameters": [
+    {
+      "parameter_name": "total_payoff",
+      "parameter_value": 0.0
+    }
+  ],
+  "model_name": "ipd",
+  "schedule": [
+    {
+      "schedule_type": "MixedSchedule",
+      "schedule_name": "MyMxSchd"
+    }
+  ],
+  "spaces": [
+    {
+      "space_type": "IpdGame",
+      "space_name": "IpdGame",
+      "space_variables": {
+        "payoffs": 0.0
+      }
+    }
+  ],
+  "agents_classes":[
+    "ZDExtortionPlayer",
+    "ZDEqualizerPlayer"
+  ]
+  ,
+  "agents": [
+    {
+      "agent_type": "ZDExtortionPlayer",
+      "agent_prefix": "zd_ext",
+      "agent_spaces": [
+      "IpdGame"
+      ],
+      "no_of_agents": 30,
+      "has_observer": true
+      },
+      {
+      "agent_type": "ZDEqualizerPlayer",
+      "agent_prefix": "zd_Equal",
+      "agent_spaces": [
+      "IpdGame"
+      ],
+      "no_of_agents": 30,
+      "has_observer": true
+    }
+  ]
+}

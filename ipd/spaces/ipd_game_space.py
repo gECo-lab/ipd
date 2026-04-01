@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 """ Basic IPD game space implementation """
 
-from kernel.space.basicSpaces import Space
-
+#from kernel.space.basicSpaces import Space
+from EcoSimpy import Space
 
 class IpdGame(Space):
     """ Abstract Market """

@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 """ Agents for the iterated prisioners dilemma model """
 
-from kernel.agent.basicAgents import DiscreteEventAgent
+from EcoSimpy import DiscreteEventAgent
+#from kernel.agent.basicAgents import DiscreteEventAgent
 from .ipd_action_set import *
 
 
@@ -147,8 +148,6 @@ class ProberPlayer(Player):
     def __init__(self, simulation, model, agent_number, agent_def):
         super().__init__(simulation, model, agent_number, agent_def)
         self.strategy = Prober()
-
-#Novas
 
 class MistrustPlayer(Player):
     """Mistrust Player"""
