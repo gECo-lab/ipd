@@ -290,9 +290,6 @@ class HardTitForTat (Strategy):
        self.others[aGame.other_name].append(aGame.other_play)
 
 
-
-"""Nathan"""
-
 class SlowTitForTat (Strategy):
    """ Slow Tit For Tat Strategy
   
