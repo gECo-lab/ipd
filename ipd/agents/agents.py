@@ -19,6 +19,8 @@ class Player(DiscreteEventAgent):
         self.game = Game(self.name, "C", 3, "", "C", 3)
         self.strategy.update_game(self.game)
         self.mean_payoff = 0
+        self.births = 0
+        self.deaths = 0
 
     def step(self):
         """ The agent selects a play from a strategy """
@@ -185,3 +187,9 @@ class ZDExtortionPlayer(Player):
     def __init__(self, simulation, scenario, agent_number, agent_def):
         super().__init__(simulation, scenario, agent_number, agent_def)
         self.strategy = ZDExtortion()
+
+class Controler(Player):
+    """ Agent to Controler the birth and death of agents in the Moran process """
+    def __init__(self, simulation, scenario, agent_number, agent_def):
+        super().__init__(simulation, scenario, agent_number, agent_def)
+        self.strategy = Controler()
