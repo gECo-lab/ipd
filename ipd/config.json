@@ -1,13 +1,12 @@
 {
     "Description": "Configuration file for EcoSimpy simulation",
-    "Version": "0.0.2",
     "License": "GPL-3.0",
     "paths": {
-        "app": "C:\\Users\\Nathan\\Home\\gEco\\ipd\\ipd",
-        "runs": "C:\\Users\\Nathan\\Home\\gEco\\ipd\\ipd\\runs\\",
-        "results": "C:\\Users\\Nathan\\Home\\gEco\\ipd\\ipd\\results\\",
-        "analisys": "C:\\Users\\Nathan\\Home\\gEco\\ipd\\ipd\\analisys\\",
-        "models": "C:\\Users\\Nathan\\Home\\gEco\\ipd\\ipd\\models\\",
-        "scenarios": "C:\\Users\\Nathan\\Home\\gEco\\ipd\\ipd\\scenarios\\"
+        "app": "/home/rivero/Dropbox/Workspace_Current/Projects/Apps/EcoSim/EcoSimpy_dev/ipd_nathan/ipd/ipd",
+        "runs": "/home/rivero/Dropbox/Workspace_Current/Projects/Apps/EcoSim/EcoSimpy_dev/ipd_nathan/ipd/ipd/runs/",
+        "results": "/home/rivero/Dropbox/Workspace_Current/Projects/Apps/EcoSim/EcoSimpy_dev/ipd_nathan/ipd/ipd/results/",
+        "analisys": "/home/rivero/Dropbox/Workspace_Current/Projects/Apps/EcoSim/EcoSimpy_dev/ipd_nathan/ipd/ipd/analisys/",
+        "models": "/home/rivero/Dropbox/Workspace_Current/Projects/Apps/EcoSim/EcoSimpy_dev/ipd_nathan/ipd/ipd/models/",
+        "scenarios": "/home/rivero/Dropbox/Workspace_Current/Projects/Apps/EcoSim/EcoSimpy_dev/ipd_nathan/ipd/ipd/scenarios/"
     }
 }
