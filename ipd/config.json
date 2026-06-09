@@ -3,11 +3,11 @@
     "Version": "0.0.2",
     "License": "GPL-3.0",
     "paths": {
-        "app": "/home/nathan/home/UFCG/gEco/Projetos/IPD/ipd/ipd",
-        "runs": "/home/nathan/home/UFCG/gEco/Projetos/IPD/ipd/ipd/runs/",
-        "results": "/home/nathan/home/UFCG/gEco/Projetos/IPD/ipd/ipd/results/",
-        "analisys": "/home/nathan/home/UFCG/gEco/Projetos/IPD/ipd/ipd/analisys/",
-        "models": "/home/nathan/home/UFCG/gEco/Projetos/IPD/ipd/ipd/models/",
-        "scenarios": "/home/nathan/home/UFCG/gEco/Projetos/IPD/ipd/ipd/scenarios/"
+        "app": "C:\\Users\\Nathan\\Home\\gEco\\ipd\\ipd",
+        "runs": "C:\\Users\\Nathan\\Home\\gEco\\ipd\\ipd\\runs\\",
+        "results": "C:\\Users\\Nathan\\Home\\gEco\\ipd\\ipd\\results\\",
+        "analisys": "C:\\Users\\Nathan\\Home\\gEco\\ipd\\ipd\\analisys\\",
+        "models": "C:\\Users\\Nathan\\Home\\gEco\\ipd\\ipd\\models\\",
+        "scenarios": "C:\\Users\\Nathan\\Home\\gEco\\ipd\\ipd\\scenarios\\"
     }
 }

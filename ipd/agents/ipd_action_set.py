@@ -290,9 +290,6 @@ class HardTitForTat (Strategy):
        self.others[aGame.other_name].append(aGame.other_play)
 
 
-
-"""Nathan"""
-
 class SlowTitForTat (Strategy):
    """ Slow Tit For Tat Strategy
   
@@ -1311,3 +1308,27 @@ class ZDExtortion(ZeroDeterminant):
         lhs = s_x - P
         rhs = self.chi * (s_y - P)
         return lhs, rhs
+
+class Controler(Strategy):
+    """ Agent to Controler the birth and death of agents in the Moran process """
+
+    def __init__(self):
+        super().__init__()
+        self.strategy_name = "Controler"
+
+
+    def update_game(self, aGame):
+        pass
+
+
+    def birth(self, agent):
+        """ Controler the birth of agents in the Moran process """
+        
+        if self.simulation.moran_process is not None:
+            self.simulation.moran_process.birth(agent)
+
+    def death(self, agent):
+        """ Controler the death of agents in the Moran process """
+        
+        if self.simulation.moran_process is not None:
+            self.simulation.moran_process.death(agent)
