@@ -1,9 +1,8 @@
 # -*- coding: utf-8 -*-
 """ Basic Strategy Class implementation """
 
-import random
+import random as _random
 import copy
-
 
 class Game:
     """ Class Representing a Game """
@@ -20,7 +19,10 @@ class Game:
 
 class Strategy:
     """ Implementation of the strategy class """
-    def __init__(self):
+    def __init__(self, rng=None):
+        # IPD agents inject Simulation.random.  The local fallback keeps
+        # standalone strategy use isolated from Python's module-level RNG.
+        self.rng = rng if rng is not None else _random.Random()
         self.strategy_name = "general"
         self.strategy = "C"
         self.game = Game("", "C", 3, "", "C", 3)
@@ -40,35 +42,35 @@ class Strategy:
 
 class AlwaysCooperate(Strategy):
     """ Always Cooperate Strategy """
-    def __init__(self):
-        super().__init__()
+    def __init__(self, rng=None):
+        super().__init__(rng)
         self.strategy_name = "always_cooperate"
         self.strategy = "C"
 
 
 class AlwaysDefect(Strategy):
     """ Never Cooperate Strategy """
-    def __init__(self):
-        super().__init__()
+    def __init__(self, rng=None):
+        super().__init__(rng)
         self.strategy_name = "always_defect"
         self.strategy = "D"
 
 
 class RandomPlay(Strategy):
     """ Cooperate randomly """
-    def __init__(self):
-        super().__init__()
+    def __init__(self, rng=None):
+        super().__init__(rng)
         self.strategy_name = "random"
         self.strategy = ["D", "C"]
 
     def select_game(self, other_player):
         """ Random Strategy """
-        return random.choice(self.strategy)
+        return self.rng.choice(self.strategy)
 
 
 class SimpleTitForTat(Strategy):
-    def __init__(self):
-        super().__init__()
+    def __init__(self, rng=None):
+        super().__init__(rng)
         self.strategy_name = "simpleTitForTat"
         self.other_last_strategy = "C"
         self.selected_strategy = "C"
@@ -83,13 +85,13 @@ class SimpleTitForTat(Strategy):
         return self.selected_strategy
     
 class TitForTat(Strategy):
-    def __init__(self):
-        super().__init__()
+    def __init__(self, rng=None):
+        super().__init__(rng)
         self.strategy_name = "TitForTat"
         self.strategy = ["D", "C"]
 
-        self.other_last_strategy = random.choice(self.strategy)
-        self.selected_strategy = random.choice(self.strategy)
+        self.other_last_strategy = self.rng.choice(self.strategy)
+        self.selected_strategy = self.rng.choice(self.strategy)
         self.others = {}
 
     def update_game(self, aGame):
@@ -115,7 +117,7 @@ class TitForTat(Strategy):
         if other_player.name in self.others:
             self.last_game.other_play = self.others[other_player.name]
         else:
-            #game = random.choice(["D","C"])
+            # game = self.rng.choice(["D", "C"])
             game = "C"
             self.others[other_player.name] = game
             self.last_game.other_play = game
@@ -132,8 +134,8 @@ class TitForTat(Strategy):
 class SimpleRancorous(Strategy):
     """ Simple Rancorous Strategy
         Agente always defects after somebody defects """
-    def __init__(self):
-        super().__init__()
+    def __init__(self, rng=None):
+        super().__init__(rng)
         self.strategy_name = "simpleRancorous"
         self.other_last_strategy = "C"
         self.selected_strategy = "C"
@@ -152,8 +154,8 @@ class Rancorous(Strategy):
         Agent always defects after somebody defects 
         Impl: Lucas 2023-10-25
     """
-    def __init__(self):
-        super().__init__()
+    def __init__(self, rng=None):
+        super().__init__(rng)
         self.strategy_name = "Rancorous"
         self.other_last_strategy = "C"
         self.selected_strategy = "C"
@@ -197,8 +199,8 @@ class Rancorous(Strategy):
 
 class Generic(Strategy):
     """ Never Cooperate Strategy """
-    def __init__(self):
-        super().__init__()
+    def __init__(self, rng=None):
+        super().__init__(rng)
         self.strategy_name = "always_defect"
         self.strategy = "D"
 
@@ -208,17 +210,17 @@ class PerCD (Strategy):
    """ PerCD Strategy 
    Periodic Plays 'C' 'D'
    """
-   def __init__(self):
-       super().__init__()
+   def __init__(self, rng=None):
+       super().__init__(rng)
        self.strategy_name = "PerCD"
        self.strategy = ["C", "D"]
        self.selected_strategy =  "C"
 
    def select_game(self, other_player):
        """ PerCD strategy """
-       self.selected_strategy = "D" if self.selected_strategy == "C" else "C"
-       
-       return self.selected_strategy
+       play = self.selected_strategy
+       self.selected_strategy = "D" if play == "C" else "C"
+       return play
 
 """ Nathan"""
 class HardTitForTat (Strategy):
@@ -232,8 +234,8 @@ class HardTitForTat (Strategy):
    -----
    If defected, he will always defect one more time than the opponent.   
    """
-   def __init__(self):
-       super().__init__()
+   def __init__(self, rng=None):
+       super().__init__(rng)
        self.strategy_name = "hard_tft"
        self.strategy = ["C", "D"]
        self.selected_strategy =  "C"
@@ -297,8 +299,8 @@ class SlowTitForTat (Strategy):
    Returns to cooperation after two consecutive cooperations of its opponent.
   
    """
-   def __init__(self):
-       super().__init__()
+   def __init__(self, rng=None):
+       super().__init__(rng)
        self.strategy_name = "slow_tft"
        self.strategy = ["C", "D"]
        self.selected_strategy =  "C"
@@ -357,8 +359,8 @@ class TitFor2Tat (Strategy):
    Cooperates the two first moves, then defects only if the opponent has defected during the two previous moves
 
    """
-   def __init__(self):
-       super().__init__()
+   def __init__(self, rng=None):
+       super().__init__(rng)
        self.strategy_name = "tf2t"
        self.strategy = ["C", "D"]
        self.selected_strategy = "C"
@@ -416,8 +418,8 @@ class Gradual (Strategy):
 
    Cooperates on the first move, then defect n times after nth defections of its opponent, and calms down with 2 cooperations (Beaufils et al. 1996).
    """
-   def __init__(self):
-       super().__init__()
+   def __init__(self, rng=None):
+       super().__init__(rng)
        self.strategy_name = "gradual"
        self.strategy = ["C", "D"]
        self.selected_strategy = "C"
@@ -503,8 +505,8 @@ class Pavlov(Strategy):
         If the moves were different (CD or DC), switches.
         (Wedekind & Milinski 1996)
     """
-    def __init__(self):
-        super().__init__()
+    def __init__(self, rng=None):
+        super().__init__(rng)
         self.strategy_name = "Pavlov"
         self.selected_strategy = "C"
         self.last_game = None
@@ -529,51 +531,17 @@ class Pavlov(Strategy):
         return self.selected_strategy
 
 
-#Prober
-
-class Prober(Strategy):
-    def __init__(self):
-        super().__init__()
-        self.strategy_name = "Prober"
-        self.strategy = ["C", "D"]
-        self.selected_strategy = "D"
-        self.other_play = []
-        self.current_round = 0 
-        self.back_strategy = TitForTat()
-
-    def update_game(self, aGame):
-        self.other_play.append(aGame.other_play)
-        self.current_round += 1
-    
-    def select_game(self):
-        if self.current_round == 0:
-            self.strategy = "D"
-
-        if self.current_round == 1 or self.current_round == 2:
-            self.strategy = "C"
-
-        if self.other_play[1] == "C" and self.other_play[2] == "C":
-                self.strategy = "D"
-        
-        else:
-            return self.back_strategy.select_game()
-        
-        return self.strategy
-
-
-
-
 class Prober(Strategy):
     """plays the sequence d,c,c, then always defects if its opponent has cooperated in the moves 2 and 3.
     Plays as tit_for_tat in other cases (Mathieu et al. 1999)
 """
-    def __init__(self):
-        super().__init__()
+    def __init__(self, rng=None):
+        super().__init__(rng)
         self.strategy_name = "Prober"
         self.strategy = "D"
         self.other_play = []
         self.current_round = 0 
-        self.back_strategy = TitForTat()
+        self.back_strategy = TitForTat(self.rng)
         self.status = {}
 
     def update_game(self, aGame):
@@ -627,8 +595,8 @@ class Mistrust(Strategy):
   Mistrust
   Defect first turn, copy last opponent play
   """
-  def __init__(self):
-      super().__init__()
+  def __init__(self, rng=None):
+      super().__init__(rng)
       self.strategy_name = "mis"
       self.strategy = ["C", "D"]
       self.selected_strategy = "D"
@@ -644,11 +612,8 @@ class Mistrust(Strategy):
 
   def select_game(self, other_player):
        """ Mistrust """
-       if self.last_game.other_play == "C":
-           self.selected_strategy = "C"
-       else:
-           self.selected_strategy = "D"
-
+       history = self.others.get(other_player.name)
+       self.selected_strategy = history[-1] if history else "D"
        return self.selected_strategy
   
   def update_memory(self, aGame):
@@ -670,8 +635,8 @@ class SoftMajority(Strategy):
    Will always cooperate on the first turn.
    Is the "cooperate" counterpart of the `Hard Majority` strategy.
    """
-   def __init__(self):
-      super().__init__()
+   def __init__(self, rng=None):
+      super().__init__(rng)
       self.strategy_name = "SoftMajo"
       self.strategy = ["C", "D"]
       self.selected_strategy = "C"
@@ -732,8 +697,8 @@ class HardMajority(Strategy):
     -------------------------
    
    """
-   def __init__(self):
-      super().__init__()
+   def __init__(self, rng=None):
+      super().__init__(rng)
       self.strategy_name = "HardMajo"
       self.strategy = ["C", "D"]
       self.selected_strategy = "D"
@@ -791,8 +756,8 @@ class Mem(Strategy):
    and then shifts among three strategies all_d, tit_for_tat,
    tf2t according to the interaction with the opponent on last two moves
    """
-   def __init__(self):
-       super().__init__()
+   def __init__(self, rng=None):
+       super().__init__(rng)
        self.strategy_name = "mem"
        self.strategy = "C"
        self.selected_strategy = "C"
@@ -800,9 +765,9 @@ class Mem(Strategy):
        self.round = 0
        self.current_strategy = "TFT"
 
-       self.tft = TitForTat()
-       self.alld = AlwaysDefect()
-       self.tf2t = TitFor2Tat()
+       self.tft = TitForTat(self.rng)
+       self.alld = AlwaysDefect(self.rng)
+       self.tf2t = TitFor2Tat(self.rng)
 
    def update_game(self, aGame):
       """ Get a game """
@@ -840,8 +805,14 @@ class Mem(Strategy):
        self.selected_strategy = self.current_strategy
        return self.current_strategy
 
+   def opponent_last_plays(self, other_player, n=2, default="C"):
+       """Return the opponent's last n plays, padding missing history."""
+       history = self.others.get(other_player.name, [])
+       return ([default] * max(0, n - len(history)) + history[-n:])[-n:]
+
    def select_game(self, other_player):
        """Mem strategy"""
+       self.select_play(other_player)
 
        if self.current_strategy == "TFT":
           self.selected_strategy = self.tft.select_game(other_player)
@@ -876,8 +847,8 @@ class Proba(Strategy):
     - my_prev, its_prev: store last moves for each opponent
     - stats: dictionary with last moves by opponent
     """
-    def __init__(self, first, p1, p2, p3, p4, name=None):
-        super().__init__()
+    def __init__(self, first, p1, p2, p3, p4, name=None, rng=None):
+        super().__init__(rng)
         self.strategy_name = "Proba"
         self.first = first
         self.p1 = p1
@@ -909,7 +880,7 @@ class Proba(Strategy):
         my_prev = self.stats[name]["my_prev"]
         its_prev = self.stats[name]["its_prev"]
 
-        rnd = random.uniform(0, 1)
+        rnd = self.rng.uniform(0, 1)
 
         if my_prev == "C" and its_prev == "C":
             return "C" if rnd < self.p1 else "D"
@@ -948,8 +919,8 @@ class ZeroDeterminant(Strategy):
     that determines p1, p2, p3, and p4.
     """
 
-    def __init__(self):
-        super().__init__()
+    def __init__(self, rng=None):
+        super().__init__(rng)
 
         self.strategy_name = "ZD"
         self.strategy = ["C", "D"]
@@ -1096,14 +1067,14 @@ class ZeroDeterminant(Strategy):
         state = self.stats.get(name)
 
         if state is None or state["my_prev"] is None:
-            return "C" if random.random() < self.p0 else "D"
+            return "C" if self.rng.random() < self.p0 else "D"
 
         prob = self.cooperation(
             state["my_prev"],
             state["its_prev"]
         )
 
-        return "C" if random.random() < prob else "D"
+        return "C" if self.rng.random() < prob else "D"
     
 
 class ZDEqualizer(ZeroDeterminant):
@@ -1111,7 +1082,9 @@ class ZDEqualizer(ZeroDeterminant):
     Equalizer Zero-Determinant strategy.
 
     An equalizer strategy is designed to fix the opponent's long-run
-    expected payoff at a specific value, regardless of the opponent's
+    expected payoff at a specific value; it does not make both players'
+    payoffs equal. With the parameters below, the imposed opponent payoff
+    is 1.5, regardless of the opponent's
     memory-one strategy, provided the underlying theoretical assumptions
     hold.
 
@@ -1119,7 +1092,7 @@ class ZDEqualizer(ZeroDeterminant):
     p2 and p3 from the Press and Dyson equalizer equations.
     """
 
-    def __init__(self):
+    def __init__(self, rng=None):
         """
         Initialize a fixed equalizer strategy.
 
@@ -1127,7 +1100,7 @@ class ZDEqualizer(ZeroDeterminant):
         conditional probabilities are computed and validated.
         """
         
-        super().__init__()
+        super().__init__(rng)
 
         self.strategy_name = "ZD_Equalizer"
 
@@ -1136,6 +1109,7 @@ class ZDEqualizer(ZeroDeterminant):
         self._p4_livre = 0.1
 
         self.probabilities()
+        self.opponent_payoff = self.score_imposed()
 
 
     def compute(self):
@@ -1210,7 +1184,7 @@ class ZDExtortion(ZeroDeterminant):
     phi = midpoint
     """
 
-    def __init__(self):
+    def __init__(self, rng=None):
         """
         Initialize a fixed extortionate strategy.
 
@@ -1219,7 +1193,7 @@ class ZDExtortion(ZeroDeterminant):
         range, and then computes the memory-one probabilities.
         """
 
-        super().__init__()
+        super().__init__(rng)
 
         self.strategy_name = "ZD_Extortion"
 
@@ -1309,26 +1283,26 @@ class ZDExtortion(ZeroDeterminant):
         rhs = self.chi * (s_y - P)
         return lhs, rhs
 
-class Controler(Strategy):
-    """ Agent to Controler the birth and death of agents in the Moran process """
+# class Controler(Strategy):
+#     """ Agent to Controler the birth and death of agents in the Moran process """
 
-    def __init__(self):
-        super().__init__()
-        self.strategy_name = "Controler"
-
-
-    def update_game(self, aGame):
-        pass
+#     def __init__(self):
+#         super().__init__()
+#         self.strategy_name = "Controler"
 
 
-    def birth(self, agent):
-        """ Controler the birth of agents in the Moran process """
+#     def update_game(self, aGame):
+#         pass
+
+
+#     def birth(self, agent):
+#         """ Controler the birth of agents in the Moran process """
         
-        if self.simulation.moran_process is not None:
-            self.simulation.moran_process.birth(agent)
+#         if self.simulation.moran_process is not None:
+#             self.simulation.moran_process.birth(agent)
 
-    def death(self, agent):
-        """ Controler the death of agents in the Moran process """
+#     def death(self, agent):
+#         """ Controler the death of agents in the Moran process """
         
-        if self.simulation.moran_process is not None:
-            self.simulation.moran_process.death(agent)
+#         if self.simulation.moran_process is not None:
+#             self.simulation.moran_process.death(agent)

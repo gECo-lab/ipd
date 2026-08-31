@@ -15,12 +15,12 @@ class Player(DiscreteEventAgent):
         self.other_name = ""
         self.other_play = "C"
         self.other_payoff = 0
-        self.strategy = Strategy()
+        self.strategy = Strategy(simulation.random)
         self.game = Game(self.name, "C", 3, "", "C", 3)
         self.strategy.update_game(self.game)
         self.mean_payoff = 0
-        self.births = 0
-        self.deaths = 0
+        # self.births = 0
+        # self.deaths = 0
 
     def step(self):
         """ The agent selects a play from a strategy """
@@ -56,14 +56,14 @@ class GoodPlayer(Player):
     """ A player that always cooperate """
     def __init__(self, simulation, scenario, agent_number, agent_def):
         super().__init__(simulation, scenario, agent_number, agent_def)
-        self.strategy = AlwaysCooperate()
+        self.strategy = AlwaysCooperate(simulation.random)
 
 
 class BadPlayer(Player):
     """ A player that always defect """
     def __init__(self, simulation, scenario, agent_number, agent_def):
         super().__init__(simulation, scenario, agent_number, agent_def)
-        self.strategy = AlwaysDefect()
+        self.strategy = AlwaysDefect(simulation.random)
 
 
 
@@ -71,34 +71,34 @@ class RandomPlayer(Player):
     """ A player that randomly plays """
     def __init__(self, simulation, scenario, agent_number, agent_def):
         super().__init__(simulation, scenario, agent_number, agent_def)
-        self.strategy = RandomPlay()
+        self.strategy = RandomPlay(simulation.random)
 
 
 class TitForTatPlayer(Player):
     """ Tit for tat player """
     def __init__(self, simulation, scenario, agent_number, agent_def):
         super().__init__(simulation, scenario, agent_number, agent_def)
-        self.strategy = SimpleTitForTat()
+        self.strategy = SimpleTitForTat(simulation.random)
 
 
 class TitForTatWithRecallPlayer(Player):
     """ Tit for tat player """
     def __init__(self, simulation, scenario, agent_number, agent_def):
         super().__init__(simulation, scenario, agent_number, agent_def)
-        self.strategy = TitForTat()
+        self.strategy = TitForTat(simulation.random)
 
 class RancorousPlayer(Player):
     """ Rancorous player """
     def __init__(self, simulation, scenario, agent_number, agent_def):
         super().__init__(simulation, scenario, agent_number, agent_def)
-        self.strategy = SimpleRancorous()
+        self.strategy = SimpleRancorous(simulation.random)
 
 
 class RancorousWithRecallPlayer(Player):
     """ Rancorous player - Impl: Lucas 2023-10-25 """
     def __init__(self, simulation, scenario, agent_number, agent_def):
         super().__init__(simulation, scenario, agent_number, agent_def)
-        self.strategy = Rancorous()
+        self.strategy = Rancorous(simulation.random)
 
 # class GenericStrategyPlayer(Player):
 #     """Implemnts a player with memory and generic strategies"""
@@ -111,85 +111,85 @@ class PeriodicPlayer(Player):
     """ Periodic player C, D """
     def __init__(self, simulation, scenario, agent_number, agent_def):
         super().__init__(simulation, scenario, agent_number, agent_def)
-        self.strategy = PerCD()
+        self.strategy = PerCD(simulation.random)
 
 class HardTitForTatPlayer(Player):
     """ Hard Tit for tat player """
     def __init__(self, simulation, scenario, agent_number, agent_def):
         super().__init__(simulation, scenario, agent_number, agent_def)
-        self.strategy = HardTitForTat()
+        self.strategy = HardTitForTat(simulation.random)
 
 class SlowTitForTatPlayer(Player):
     """Slow Tit for Tat Player"""
     def __init__(self, simulation, scenario, agent_number, agent_def):
         super().__init__(simulation, scenario, agent_number, agent_def)
-        self.strategy = SlowTitForTat()
+        self.strategy = SlowTitForTat(simulation.random)
 
 class TitFor2TatPlayer(Player):
     """Tit For 2 Tat Player"""
     def __init__(self, simulation, scenario, agent_number, agent_def):
         super().__init__(simulation, scenario, agent_number, agent_def)
-        self.strategy = TitFor2Tat()
+        self.strategy = TitFor2Tat(simulation.random)
 
 class GradualPlayer(Player):
     """Gradual Player"""
     def __init__(self, simulation, scenario, agent_number, agent_def):
         super().__init__(simulation, scenario, agent_number, agent_def)
-        self.strategy = Gradual()
+        self.strategy = Gradual(simulation.random)
 #FIM
 
 class PavlovPlayer(Player):
     """Pavlov Player"""
     def __init__(self, simulation, scenario, agent_number, agent_def):
         super().__init__(simulation, scenario, agent_number, agent_def)
-        self.strategy = Pavlov()
+        self.strategy = Pavlov(simulation.random)
 
 class ProberPlayer(Player):
     """Prober Player"""
     def __init__(self, simulation, scenario, agent_number, agent_def):
         super().__init__(simulation, scenario, agent_number, agent_def)
-        self.strategy = Prober()
+        self.strategy = Prober(simulation.random)
 
 class MistrustPlayer(Player):
     """Mistrust Player"""
     def __init__(self, simulation, scenario, agent_number, agent_def):
         super().__init__(simulation, scenario, agent_number, agent_def)
-        self.strategy = Mistrust()
+        self.strategy = Mistrust(simulation.random)
 
 class SoftMajorityPlayer(Player):
     """ SoftMajority Player"""
     def __init__(self, simulation, scenario, agent_number, agent_def):
         super().__init__(simulation, scenario, agent_number, agent_def)
-        self.strategy = SoftMajority()
+        self.strategy = SoftMajority(simulation.random)
 
 
 class HardMajorityPlayer(Player):
     """ HardMajority Player"""
     def __init__(self, simulation, scenario, agent_number, agent_def):
         super().__init__(simulation, scenario, agent_number, agent_def)
-        self.strategy = HardMajority()
+        self.strategy = HardMajority(simulation.random)
 
 class MemPlayer(Player):
     """ Mem Player"""
     def __init__(self, simulation, scenario, agent_number, agent_def):
         super().__init__(simulation, scenario, agent_number, agent_def)
-        self.strategy = Mem()
+        self.strategy = Mem(simulation.random)
 
 class ZDEqualizerPlayer(Player):
     """ZD Equalizer Player"""
     def __init__(self, simulation, scenario, agent_number, agent_def):
         super().__init__(simulation, scenario, agent_number, agent_def)
-        self.strategy = ZDEqualizer()
+        self.strategy = ZDEqualizer(simulation.random)
 
 
 class ZDExtortionPlayer(Player):
     """ZD Extortion Player"""
     def __init__(self, simulation, scenario, agent_number, agent_def):
         super().__init__(simulation, scenario, agent_number, agent_def)
-        self.strategy = ZDExtortion()
+        self.strategy = ZDExtortion(simulation.random)
 
-class Controler(Player):
-    """ Agent to Controler the birth and death of agents in the Moran process """
-    def __init__(self, simulation, scenario, agent_number, agent_def):
-        super().__init__(simulation, scenario, agent_number, agent_def)
-        self.strategy = Controler()
+# class Controler(Player):
+#     """ Agent to Controler the birth and death of agents in the Moran process """
+#     def __init__(self, simulation, scenario, agent_number, agent_def):
+#         super().__init__(simulation, scenario, agent_number, agent_def)
+#         self.strategy = Controler()

@@ -38,7 +38,9 @@
     "SoftMajorityPlayer",
     "HardMajorityPlayer",
     "MistrustPlayer",
-    "MemPlayer"
+    "MemPlayer",
+    "ZDExtortionPlayer",
+    "ZDEqualizerPlayer"
   ]
   ,
   "agents": [
@@ -48,7 +50,7 @@
       "agent_spaces": [
         "IpdGame"
       ],
-      "no_of_agents": 30,
+      "no_of_agents": 17,
       "has_observer": true
     },
     {
@@ -57,7 +59,7 @@
       "agent_spaces": [
         "IpdGame"
       ],
-      "no_of_agents": 30,
+      "no_of_agents": 17,
       "has_observer": true
     },
     {
@@ -66,7 +68,7 @@
       "agent_spaces": [
         "IpdGame"
       ],
-      "no_of_agents": 30,
+      "no_of_agents": 17,
       "has_observer": true
     },
     {
@@ -75,7 +77,7 @@
     "agent_spaces": [
       "IpdGame"
     ],
-    "no_of_agents": 30,
+    "no_of_agents": 17,
     "has_observer": true
     },
     {
@@ -84,7 +86,7 @@
       "agent_spaces": [
         "IpdGame"
       ],
-      "no_of_agents": 30,
+      "no_of_agents": 17,
       "has_observer": true
     },
      {
@@ -93,7 +95,7 @@
           "agent_spaces": [
             "IpdGame"
           ],
-          "no_of_agents": 30,
+          "no_of_agents": 17,
           "has_observer": true
         },
         {
@@ -102,7 +104,7 @@
           "agent_spaces": [
             "IpdGame"
           ],
-          "no_of_agents": 30,
+          "no_of_agents": 17,
           "has_observer": true
         },
         {
@@ -111,7 +113,7 @@
           "agent_spaces": [
             "IpdGame"
           ],
-          "no_of_agents": 30,
+          "no_of_agents": 17,
           "has_observer": true
         },
         {
@@ -120,7 +122,7 @@
           "agent_spaces": [
             "IpdGame"
           ],
-          "no_of_agents": 30,
+          "no_of_agents": 17,
           "has_observer": true
         },
         {
@@ -129,7 +131,7 @@
           "agent_spaces": [
             "IpdGame"
           ],
-          "no_of_agents": 30,
+          "no_of_agents": 17,
           "has_observer": true
         },
         {
@@ -138,7 +140,7 @@
           "agent_spaces": [
             "IpdGame"
           ],
-          "no_of_agents": 30,
+          "no_of_agents": 17,
           "has_observer": true
         },
         {
@@ -147,7 +149,7 @@
           "agent_spaces": [
             "IpdGame"
           ],
-          "no_of_agents": 30,
+          "no_of_agents": 17,
           "has_observer": true
         },
         {
@@ -156,7 +158,7 @@
           "agent_spaces": [
             "IpdGame"
           ],
-          "no_of_agents": 30,
+          "no_of_agents": 17,
           "has_observer": true
         },
         {
@@ -165,7 +167,7 @@
           "agent_spaces": [
             "IpdGame"
           ],
-          "no_of_agents": 30,
+          "no_of_agents": 17,
           "has_observer": true
         },
         {
@@ -174,7 +176,7 @@
           "agent_spaces": [
             "IpdGame"
           ],
-          "no_of_agents": 30,
+          "no_of_agents": 17,
           "has_observer": true
         },
         {
@@ -183,8 +185,26 @@
           "agent_spaces": [
             "IpdGame"
           ],
-          "no_of_agents": 30,
+          "no_of_agents": 17,
           "has_observer": true
-        }        
+        },
+        {
+        "agent_type": "ZDExtortionPlayer",
+        "agent_prefix": "zd_ext",
+        "agent_spaces": [
+        "IpdGame"
+        ],
+        "no_of_agents": 8,
+        "has_observer": true
+        },
+        {
+        "agent_type": "ZDEqualizerPlayer",
+        "agent_prefix": "zd_Equal",
+        "agent_spaces": [
+        "IpdGame"
+        ],
+        "no_of_agents": 8,
+        "has_observer": true
+      }        
   ]
 }
